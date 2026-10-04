@@ -1,4 +1,4 @@
-<!-- BUILD_TOKEN: NS90.231-SAVE-ONLY-FINAL-1004 -->
+<!-- BUILD_TOKEN: NS90.232-SAVE-COMMIT-FINAL-1004 -->
 <!DOCTYPE html>
 
 <html lang="ko"><head>
@@ -124,7 +124,7 @@ body.view-cards #detail .cards .item>.actions{display:none}
 .rep-card-btn-v5.verified-ready{background:#eee7ff!important;border:2px solid #7657e8!important;color:#352080!important;opacity:1!important;box-shadow:0 2px 7px rgba(80,55,170,.12)!important}
 .rep-card-btn-v5.registered,.rep-card-btn-v5.ns9017-done,.rep-card-btn-v5.ns9016-done{background:#e8f5e9!important;border:2px solid #78b487!important;color:#315f3b!important;opacity:1!important;box-shadow:none!important}
 </style>
-</head><body><div id="ns9015Banner" style="position:sticky;top:0;z-index:9999;background:#173f70;color:white;text-align:center;font-weight:800;padding:10px 8px;font-size:15px;letter-spacing:.2px">✅ MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE</div>
+</head><body><div id="ns9015Banner" style="position:sticky;top:0;z-index:9999;background:#173f70;color:white;text-align:center;font-weight:800;padding:10px 8px;font-size:15px;letter-spacing:.2px">✅ MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE</div>
 <style>
 #kbBtn{position:fixed;right:14px;bottom:14px;z-index:12020;border:0;border-radius:999px;padding:13px 17px;background:#244b76;color:#fff;font-weight:900;box-shadow:0 4px 14px #0003}
 #kbPanel{display:none;position:fixed;inset:0;z-index:12030;background:#f7f4ec;overflow:auto;padding:16px}
@@ -1733,7 +1733,7 @@ function ns177CleanCardKey(country,section,name){
  n=String(n||raw).trim().toLowerCase().replace(/\s+/g,' ');
  return [c,s,n].join('|');
 }
-const NS9015_VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const NS9015_VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const NS9051_STATE_RULE='saved=green; verified-ready=purple; unverified=white; delete-card=>verified-ready';
 const ONE_TOPIC_ADAPTER={
  food:{kind:'food',ko:'음식'}, fruit:{kind:'fruit',ko:'과일'},
@@ -2197,7 +2197,7 @@ async function oneResolve(section,name,forcedKind=''){
  return {name:clean,title:finalName,resolvedName:finalName,entityId:best.p.pageprops?.wikibase_item||'',pageId:best.p.pageid||'',desc:cardDesc,photo,photos:photo?[photo]:[],sources:['NS90.39 검색 복구 기준 · NS90.33 검증 나라 연결 + NS90.30 풍부한 한국어 설명 + NS90.29 한국어 미리보기 보장 + NS90.28 한국어 설명 브리지 + NS90.27 안전 카드 품질 게이트 + NS90.26 다국어 동일대상 브리지'],score:bestScore,section,kind:topic.kind,qualityGate:{identity:true,type:true,description:true,photo:true,koreanPreview:true,countryContext:true,countryContextVerified}};
 }
 const ONE_CARD_ENGINE={
- version:'MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE',
+ version:'MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE',
  async resolve(input){return await oneResolve(input.section,input.name,input.kind||'')}
 };
 async function sharedResolve(name,type,section=''){return await ONE_CARD_ENGINE.resolve({section:section||type,name,kind:type})}
@@ -2944,6 +2944,8 @@ function openRepresentativePreview(section,name,verified,panel){
    try{
      const ok=await ns90106AppendCard(section,item);
      if(ok!==true)throw new Error('primary card save failed');
+     // NS90.232: direct-add name becomes persistent ONLY after the explicit card-save succeeds.
+     if(verified.searchAlias){try{putAdded(section,name,{searchAlias:String(verified.searchAlias||'')})}catch(e){console.warn('[NS90.232] user-added board save skipped',e)}}
    }catch(e){
      console.error('[NS90.56] primary card save failed',e);
      if(isQuotaError(e)){try{await ns9054MigrateLegacyPhotos();ns9053StorageCleanup(v12Request(section,name).key);ns9053SaveReady(v12Request(section,name),verified);const ok2=await ns90106AppendCard(section,item);if(ok2===true){await renderSection(section);await renderRepresentativeCardButtonsV5(section);v16MarkRegisteredInPlace(section,name);v22ScrollToSection(section);return}}catch(_){}}
@@ -3413,7 +3415,7 @@ openCountry=function(code){
  return r;
 };
 
-window.__NS9021_ONE_ENGINE={version:'MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE',engine:ONE_CARD_ENGINE,rule:'country + section + name -> exactly one resolver'};
+window.__NS9021_ONE_ENGINE={version:'MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE',engine:ONE_CARD_ENGINE,rule:'country + section + name -> exactly one resolver'};
 window.__MAGIC_V7_DIAGNOSTIC={
  engine:'tested V3 core',
  lessonV23:'Fushimi/Yutoku: representative quality tie-break + exact selected-page photo binding',
@@ -3437,7 +3439,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 <!-- NS90.176: repair stale stableKey collisions by deriving identity from the card's current name. -->
 <script id="ns90167-card-identity-repair">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  function actualKey(country,section,x){
    const n=String(x?.name||x?.entityTitle||'').trim();
    try{return ns177CleanCardKey(country,section,n)}catch(_){return [String(country||COUNTRY||''),String(section||''),normalizeItemName(n)].join('|')}
@@ -3485,7 +3487,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
  }
  function syncVersion(){
    try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}
-   try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+   try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
  }
  window.addEventListener('DOMContentLoaded',()=>{syncVersion();setTimeout(syncVersion,80);setTimeout(syncVersion,500);setTimeout(repair,700)});
  window.addEventListener('load',()=>{syncVersion();setTimeout(syncVersion,300)});
@@ -3495,7 +3497,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 </script>
 <script id="ns90170-record-store">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  const DB='magic_wand_cards_ns171', STORE='card_records', MEM=new Map(), READY=new Set();
  const secs=['food','animals','fruit','places','culture','singers','athletes','people','art'];
  const oldGet=getCustom, oldSet=setCustom;
@@ -3570,13 +3572,13 @@ async function ns90190TrueWeakItemReset(){
  }
 
  async function boot(){for(const c of ['ES','JP','US'])for(const s of secs)await migrate(c,s);try{if(!document.getElementById('detail').classList.contains('hidden'))for(const s of secs)await renderSection(s)}catch(_){} }
- function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+ function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
  boot().catch(e=>console.error('[NS90.176 boot]',e));sync();window.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,700);setInterval(sync,1500);
 })();
 </script>
 <script id="ns90171-nondestructive-save">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  // New rule: ordinary save/update may NEVER remove an existing card.
  // Only ns9096DeleteDurable is allowed to remove a card.
  function mergeKeepExisting(section,incoming){
@@ -3608,7 +3610,7 @@ async function ns90190TrueWeakItemReset(){
  };
  function sync(){
    try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}
-   try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+   try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
    try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}
  }
  sync(); document.addEventListener('DOMContentLoaded',sync); window.addEventListener('load',sync); setTimeout(sync,100); setTimeout(sync,700); setInterval(sync,1500);
@@ -3619,7 +3621,7 @@ async function ns90190TrueWeakItemReset(){
 window.__NS90191_ASSISTED_NAME_STAGE = v22ShowAssistResults;
 </script>
 <script id="ns90177-clean-engine">(()=>{
-const CLEAN_VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const CLEAN_VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 // ONE resolver only: the original common oneResolve-backed ONE_CARD_ENGINE from the base.
 // No resolver wrapping, no category-specific second engine, no retry wrapper.
 async function cleanResolve(section,name){
@@ -3698,14 +3700,22 @@ v18ManualAssist=async function(section,name){
 };
 // One simple append path. Existing 176 durable setCustom/card store remains responsible for persistence.
 ns90106AppendCard=async function(section,item){
- const a=getCustom(section)||[];
+ const country=String(COUNTRY||''), a=getCustom(section)||[];
  if(a.some(x=>sameCardIdentity(cardInputName(x.name),cardInputName(item.name))))throw new Error('same representative already exists');
  const fresh={...item,id:item.id||newItemId()};
- setCustom(section,[...a,fresh]); item.id=fresh.id; return true;
+ const merged=[...a,fresh];
+ // NS90.232: wait for the IndexedDB transaction; do not report success before persistence completes.
+ await cardDBPut(country,section,merged);
+ CARD_MEM.set(cardStoreKey(country,section),merged.map(x=>({...x})));
+ try{localStorage.setItem(`${DATA_NS}custom_${country}_${section}`,JSON.stringify(merged.map(ns9055CompactCardForLocal)))}catch(_){}
+ item.id=fresh.id;
+ const check=await cardDBGet(country,section);
+ if(!Array.isArray(check)||!check.some(x=>String(x.id)===String(fresh.id)))throw new Error('durable save verification failed');
+ return true;
 };
 function cleanUI(){
  try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+CLEAN_VERSION}catch(_){}
- try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+ try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
  ['ns90158DiagBtn','ns90158Diag','ns90177Tools','ns90177Diag'].forEach(id=>{try{document.getElementById(id)?.remove()}catch(_){}});
  // Old diagnostic/test floating controls are intentionally absent in CLEAN ENGINE.
  document.querySelectorAll('button').forEach(b=>{const t=(b.textContent||'').trim();if(t.includes('대표상태 진단')||t.includes('새 백과구조 시험')||t.includes('자동재검색 · 진단'))b.remove()});
@@ -3720,7 +3730,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
    Layer 3: direct add = optional exploration with SAME-ENTITY aliases only.
 */
 (()=>{
-const NS90195_VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const NS90195_VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const NS90195_PREP=new Map();
 function ns90195CandidateNames(section){return parseRepNames(repTextFor(section),section).map(n=>v28RepresentativeName(section,n));}
 function ns90195Photo(v){return String(v?.photo||((Array.isArray(v?.photos)&&v.photos[0])||''));}
@@ -3839,14 +3849,14 @@ v22ShowAssistResults=async function(section,name,pv,originName){
  const render=()=>{pv.innerHTML=`<div class="preview-card"><h3>🔎 같은 항목의 이름 후보</h3><p><b>${esc(original)}</b>을 찾는 데 도움이 되는 같은 대상의 이름만 보여줍니다.</p><div class="ns193-name-candidates"></div><button class="rep-close-v5">닫기</button></div>`;const host=pv.querySelector('.ns193-name-candidates');for(const c of candidates){const b=document.createElement('button');b.className='rep-card-btn-v5 can-make';b.textContent=c.label+(c.why?' · '+c.why:'');host.appendChild(b);b.onclick=async()=>{pv.innerHTML=`<div class="preview-card">🔎 <b>${esc(c.label)}</b> 이름으로 찾고 있어요…</div>`;let v=null;try{v=await ONE_CARD_ENGINE.resolve({section:String(section),name:cardInputName(c.query)})}catch(_){}if(v?.desc){try{v=await ns90188AutoQuality(section,original,v)}catch(_){}v={...v,searchAlias:c.query,representativeName:original};openRepresentativePreview(section,original,v,pv.closest('.rep-card-panel-v5'))}else{pv.innerHTML=`<div class="preview-card"><h3>${esc(c.label)}</h3><p>이 이름으로는 충분한 카드 자료를 찾지 못했습니다.</p><button class="ns193-back">← 다른 이름 후보</button> <button class="rep-close-v5">닫기</button></div>`;pv.querySelector('.ns193-back').onclick=render;pv.querySelector('.rep-close-v5').onclick=()=>pv.innerHTML=''}}}pv.querySelector('.rep-close-v5').onclick=()=>pv.innerHTML=''};render();
 };
 v18ManualAssist=async function(section,name){const panel=document.getElementById(section)?.querySelector('.rep-card-panel-v5'),pv=panel?.querySelector('.rep-preview-v5');if(pv)return v22ShowAssistResults(section,name,pv,name)};
-function syncVersion(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+NS90195_VERSION}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=NS90195_VERSION}catch(_){}}
+function syncVersion(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+NS90195_VERSION}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=NS90195_VERSION}catch(_){}}
 syncVersion();document.addEventListener('DOMContentLoaded',syncVersion);window.addEventListener('load',()=>{syncVersion();setTimeout(()=>{try{renderCountryOverviews();REP_SECTIONS.forEach(v26RefreshOverviewRep);renderAllRepresentativeCardButtonsV5()}catch(_){}},120)});
 window.__NS90195={version:NS90195_VERSION,principle:'overview=importance; card-maker=prepared material; viewing=instant cached read; preparation=single persistent background queue; direct-add=same-entity assisted search'};
 })();
 </script>
 <script id="ns90196-direct-add-repair">
 (()=>{
-const NS90196_VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const NS90196_VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 
 function ns90196Norm(v){try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}}
 function ns90196Words(section){
@@ -3912,7 +3922,7 @@ v18ManualAssist=async function(section,name){
  if(!pv)return alert('직접 항목추가 화면을 준비하지 못했습니다.');
  return v22ShowAssistResults(section,name,pv,name);
 };
-function sync196(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+NS90196_VERSION}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=NS90196_VERSION}catch(_){}}
+function sync196(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+NS90196_VERSION}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=NS90196_VERSION}catch(_){}}
 sync196();document.addEventListener('DOMContentLoaded',sync196);window.addEventListener('load',sync196);setTimeout(sync196,200);setInterval(sync196,1600);
 window.__NS90196={version:NS90196_VERSION,directAdd:'same-entity candidate stage repaired; original remains searchable; related entities excluded'};
 })();
@@ -3925,7 +3935,7 @@ window.__NS90196={version:NS90196_VERSION,directAdd:'same-entity candidate stage
            priority in pass 1. Purple always means prepared material is already cached.
 */
 (()=>{
-const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const P2='magic_ns90197_pass2|';
 const p2key=(c,s,n)=>P2+[c,s,cardInputName(n)].join('|');
 const norm=v=>{try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}};
@@ -3985,7 +3995,7 @@ const oldRenderBoard=renderBoard;renderBoard=function(section){const x=oldRender
    if(p2running&&pending2)pr.textContent += ` · 2차 보완검색 ${pending2}`;
  }
 }catch(_){}return x};
-function sync197(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){} }
+function sync197(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){} }
 sync197();document.addEventListener('DOMContentLoaded',()=>{sync197();setTimeout(startPass2WhenIdle,800)});window.addEventListener('load',()=>{sync197();setTimeout(startPass2WhenIdle,1200)});
 window.__NS90197={version:V,principle:'pass1 all importance names first; only then pass2 gray items with same-entity aliases; successful assisted retry becomes purple; unresolved stays gray'};
 })();
@@ -3995,7 +4005,7 @@ window.__NS90197={version:V,principle:'pass1 all importance names first; only th
    It uses its own visible preview holder because the old duplicate representative
    card-maker panel is intentionally hidden by the one-board UI. */
 (()=>{
-const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 function ns90198Holder(section){
  const sec=document.getElementById(section); if(!sec)return null;
  let holder=sec.querySelector('.ns198-direct-add-holder');
@@ -4036,7 +4046,7 @@ ns90196ResolveSelected=async function(section,original,c,pv){
 };
 function sync(){
  try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}
- try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+ try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
  try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}
 }
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setTimeout(sync,250);setInterval(sync,1800);
@@ -4045,7 +4055,7 @@ window.__NS90198={version:V,directAdd:'visible same-entity candidate -> selected
 </script>
 \n<script id="ns90199-smart-direct-add">
 (()=>{
-const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 function N(v){try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\\s+/g,'')}}
 function sectionKo(s){return ({food:'음식',fruit:'과일',animals:'동식물',places:'명소',culture:'문화',singers:'가수',athletes:'운동선수',people:'역사인물',art:'예술작품'})[s]||''}
 function countryKo(){try{return countries?.[COUNTRY]?.name||({JP:'일본',ES:'스페인',US:'미국'})[COUNTRY]||''}catch(_){return ''}}
@@ -4097,7 +4107,7 @@ v22ShowAssistResults=async function(section,name,pv,originName){
  if(cs.length<=1)pv.querySelector('.ns199-note').textContent='도움이 되는 다른 후보를 찾지 못했습니다. 입력한 이름으로 검색해볼 수 있습니다.';
  pv.querySelector('.rep-close-v5').onclick=()=>pv.innerHTML='';
 };
-function sync(){try{document.querySelectorAll('.add-btn').forEach(b=>b.textContent='항목 추가')}catch(_){}try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}}
+function sync(){try{document.querySelectorAll('.add-btn').forEach(b=>b.textContent='항목 추가')}catch(_){}try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}}
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setTimeout(sync,250);setInterval(sync,1800);
 window.__NS90199={version:V,directAdd:'same-entity aliases + broad-query related concrete candidates; shared with gray pass 2'};
 })();
@@ -4109,7 +4119,7 @@ window.__NS90199={version:V,directAdd:'same-entity aliases + broad-query related
 </style>
 <script id="ns90202-relation-gated-direct-add">
 (()=>{
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 function N(v){try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}}
 function SK(s){return ({food:'음식',fruit:'과일',animals:'동식물',places:'명소',culture:'문화',singers:'가수',athletes:'운동선수',people:'역사인물',art:'예술작품'})[s]||''}
 function CK(){try{return countries?.[COUNTRY]?.name||''}catch(_){return ''}}
@@ -4159,7 +4169,7 @@ ns90196ResolveSelected=async function(section,original,cand,pv){
  // Never disappear after a selection: always leave a visible result and a way back.
  pv.innerHTML=`<div class="preview-card"><h3>${esc(cand.label)}</h3><p>같은 대상을 가리키는 다른 이름까지 확인했지만 이번에는 충분한 카드 자료를 찾지 못했습니다.</p><button class="ns202-back">← 후보 다시 보기</button> <button class="rep-close-v5">닫기</button></div>`;pv.querySelector('.ns202-back').onclick=()=>v22ShowAssistResults(section,original,pv,original);pv.querySelector('.rep-close-v5').onclick=()=>pv.innerHTML='';
 };
-function sync202(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){}}
+function sync202(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){}}
 sync202();document.addEventListener('DOMContentLoaded',sync202);window.addEventListener('load',()=>setTimeout(sync202,100));setInterval(sync202,2000);
 window.__NS90202={version:VERSION,principle:'country+category first; direct-relation gate before candidates; selected candidate keeps context and same-entity aliases through card resolution; selection never vanishes'};
 })();
@@ -4170,7 +4180,7 @@ window.__NS90202={version:VERSION,principle:'country+category first; direct-rela
 </style>
 <script id="ns90203-stable-direct-add-session">
 (()=>{
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const sessions=new Map();
 function sid(section){return String(COUNTRY||'')+'|'+String(section||'')}
 function ensurePanel(section){
@@ -4245,7 +4255,7 @@ v18ManualAssist=async function(section,name){return showCandidates(section,name,
 // Keep a live Direct Add session visible even when background representative-board rendering runs.
 const observer=new MutationObserver(()=>{for(const [k,s] of sessions){const [country,section]=k.split('|');if(country!==String(COUNTRY||''))continue;const x=ensurePanel(section);if(x&&!x.pv.innerHTML&&s.state==='searching')x.pv.innerHTML=`<div class="preview-card">🔎 <b>${esc(s.cand?.label||s.original)}</b> 자료를 찾고 있어요…</div>`;}});
 try{observer.observe(document.body,{childList:true,subtree:true})}catch(_){}
-function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){} }
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){} }
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setInterval(sync,2000);
 window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent section panel. candidate -> searching -> preview/failure/timeout; background rendering cannot silently erase the session.'};
 })();
@@ -4254,7 +4264,7 @@ window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent sectio
 <!-- NS90.130: exact NS90.120 proven ONE MASTER baseline restore. No search/resolver logic added. -->
 <script>
 (()=>{
-  const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+  const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
   try{
     const b=document.getElementById('ns9015Banner');
     if(b) b.textContent='✅ '+V;
@@ -4266,7 +4276,7 @@ window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent sectio
 <!-- NS90.134: version sync + Spain person-card tidy. Locked core/fallback logic unchanged. -->
 <script id="ns90134-version-sync-spain-card-tidy">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  const ES_ORDER={
   singers:['훌리오 이글레시아스','엔리케 이글레시아스','로살리아','알레한드로 산스','파코 데 루시아','플라시도 도밍고','몬세라트 카바예'],
   athletes:['라파엘 나달','카를로스 알카라스','안드레스 이니에스타','사비 에르난데스','이케르 카시야스','파우 가솔','페르난도 알론소'],
@@ -4300,7 +4310,7 @@ window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent sectio
 <!-- NS90.135: country data cleanup only. Search engine is intentionally untouched. -->
 <script id="ns90135-country-data-cleanup-only">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  const DATA={
   ES:{
    singers:['훌리오 이글레시아스','엔리케 이글레시아스','로살리아','알레한드로 산스','파코 데 루시아','플라시도 도밍고','몬세라트 카바예'],
@@ -4354,7 +4364,7 @@ window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent sectio
 <!-- NS90.137 final visible version sync; no search logic changes. -->
 <script id="ns90138-final-version-sync">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  function sync138(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
  sync138(); setTimeout(sync138,0); setTimeout(sync138,300); setTimeout(sync138,1500); setTimeout(sync138,3500);
 })();
@@ -4362,7 +4372,7 @@ window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent sectio
 <!-- NS90.140: iOS Safari ↔ Home Screen transfer bridge. Search engine untouched. -->
 <script id="ns90140-ios-transfer-bridge">
 (()=>{
- const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  const SKIP=new Set(['magic_ns90137_run_after_refresh']);
  function appKey(k){return k==='encyclopedia_title'||k==='country_favorites'||k.startsWith('magic_')||k.startsWith(DATA_NS)}
  function exportLocal(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i)||'';if(appKey(k)&&!SKIP.has(k))o[k]=localStorage.getItem(k)}return o}
@@ -4414,7 +4424,7 @@ window.__NS90203={version:VERSION,principle:'Direct Add owns a persistent sectio
    Clicking white/gray promotes that item to the next search position.
 */
 (()=>{
-const V='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const FAIL='magic_ns90195_fail|';
 const queue=[];const queued=new Set();let working=false,current='';
 const key=(country,section,name)=>[country,section,cardInputName(name)].join('|');
@@ -4502,7 +4512,7 @@ window.v26RefreshOverviewRep=function(section){renderBoard(section)};
 window.renderRepresentativeCardButtonsV5=async function(section){renderBoard(section)};
 window.renderAllRepresentativeCardButtonsV5=function(){REP_SECTIONS.forEach(s=>renderBoard(s))};
 const oldRenderSection=renderSection;renderSection=async function(section){const x=await oldRenderSection.apply(this,arguments);setTimeout(()=>renderBoard(section),0);return x};
-function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
 sync();document.addEventListener('DOMContentLoaded',()=>{sync();setTimeout(()=>REP_SECTIONS.forEach(renderBoard),80)});window.addEventListener('load',()=>{sync();setTimeout(()=>REP_SECTIONS.forEach(renderBoard),220)});
 window.__NS90195={version:V,principle:'one importance-name board; white->purple/gray; green after save; click white/gray prioritizes next search; direct-add remains separate'};
 })();
@@ -4514,7 +4524,7 @@ window.__NS90195={version:V,principle:'one importance-name board; white->purple/
 </style>
 <script id="ns90200-context-direct-add">
 (()=>{
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const ADD_PREFIX='magic_ns90200_added|';
 function norm(v){try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}}
 function addedKey(section,country=String(COUNTRY||'')){return ADD_PREFIX+country+'|'+section}
@@ -4573,13 +4583,13 @@ __ns200LegacyShowAssistResults=async function(section,name,pv,originName){
 };
 ns90196ResolveSelected=async function(section,original,cand,pv){
  pv.innerHTML=`<div class="preview-card">🔎 <b>${esc(cand.label)}</b> 이름으로 자료를 찾고 있어요…</div>`;let v=null;try{v=await ONE_CARD_ENGINE.resolve({section:String(section),name:cardInputName(cand.query)})}catch(e){console.warn('[NS90.201 direct add]',e)}
- if(v?.desc){try{v=await ns90188AutoQuality(section,cand.label,v)}catch(_){}const display=(cand.kind==='related'?cardInputName(cand.label):cardInputName(original));v={...v,searchAlias:cand.query,representativeName:display};putAdded(section,display,{searchAlias:cand.query});try{ns9053SaveReady(v12Request(section,display),v)}catch(_){}const holder=pv.closest('.rep-card-panel-v5')||document.getElementById(section);openRepresentativePreview(section,display,v,holder);setTimeout(()=>{try{v26RefreshOverviewRep(section);renderRepresentativeCardButtonsV5(section);paintAdded(section)}catch(_){}},60);return}
+ if(v?.desc){try{v=await ns90188AutoQuality(section,cand.label,v)}catch(_){}const display=(cand.kind==='related'?cardInputName(cand.label):cardInputName(original));v={...v,searchAlias:cand.query,representativeName:display};try{ns9053SaveReady(v12Request(section,display),v)}catch(_){}const holder=pv.closest('.rep-card-panel-v5')||document.getElementById(section);openRepresentativePreview(section,display,v,holder);setTimeout(()=>{try{v26RefreshOverviewRep(section);renderRepresentativeCardButtonsV5(section);paintAdded(section)}catch(_){}},60);return}
  pv.innerHTML=`<div class="preview-card"><h3>${esc(cand.label)}</h3><p>이 이름으로는 충분한 카드 자료를 찾지 못했습니다.</p><button class="ns200-back">← 후보 다시 보기</button> <button class="rep-close-v5">닫기</button></div>`;pv.querySelector('.ns200-back').onclick=()=>v22ShowAssistResults(section,original,pv,original);pv.querySelector('.rep-close-v5').onclick=()=>pv.innerHTML='';
 };
 function paintAdded(section){const sec=document.getElementById(section);if(!sec)return;const adds=getAdded(section);sec.querySelectorAll('.ns195-chip').forEach(b=>{const txt=String(b.textContent||'').replace(/^[○◆●✓…＋+]+\s*/,'').replace(/\s*\+$/,'').trim();if(!adds.some(x=>norm(x.name)===norm(txt)))return;b.classList.add(b.classList.contains('saved')?'user-added-saved':'user-added-ready');if(!b.textContent.includes('＋'))b.textContent='＋ '+txt;b.title=(b.title?b.title+' · ':'')+'항목 추가로 찾은 항목';});}
 function paintAll(){try{REP_SECTIONS.forEach(paintAdded)}catch(_){}}
 const oldRender=window.renderRepresentativeCardButtonsV5;if(typeof oldRender==='function')window.renderRepresentativeCardButtonsV5=async function(section){const r=await oldRender(section);paintAdded(section);return r};
-function sync(){const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static';const h=document.getElementById('header');if(h&&b.previousElementSibling!==h)h.insertAdjacentElement('afterend',b)}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{document.querySelectorAll('.add-btn').forEach(x=>x.textContent='항목 추가')}catch(_){}paintAll()}
+function sync(){const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static';const h=document.getElementById('header');if(h&&b.previousElementSibling!==h)h.insertAdjacentElement('afterend',b)}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{document.querySelectorAll('.add-btn').forEach(x=>x.textContent='항목 추가')}catch(_){}paintAll()}
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>{sync();setTimeout(sync,200)});setInterval(sync,1800);
 window.__NS90200={version:VERSION,principle:'context-first direct add; partial-name and broad-term discovery; successful user discoveries persist on board; user-added color survives card deletion; banner below navigation'};
 })();
@@ -4596,7 +4606,7 @@ window.__NS90200={version:VERSION,principle:'context-first direct add; partial-n
 <script id="ns90206-direct-add-clean">
 (()=>{
 'use strict';
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 let state={section:'',original:'',candidates:[],selected:null,token:0};
 function ensure(){let o=document.getElementById('ns206Overlay');if(o)return o;o=document.createElement('div');o.id='ns206Overlay';o.innerHTML='<div id="ns206Box"></div>';document.body.appendChild(o);o.addEventListener('click',e=>{if(e.target===o)close()});return o}
 function box(){ensure();return document.getElementById('ns206Box')}
@@ -4608,11 +4618,11 @@ async function getCandidates(section,name){try{const a=await ns90200Candidates(s
 function renderCandidates(){show(`<h3>🔎 검색에 도움이 되는 후보</h3><p><b>${esc(state.original)}</b>을(를) 현재 나라와 카테고리에서 찾았습니다.</p><div id="ns206Candidates"></div><div class="actions"><button id="ns206Close">닫기</button></div>`);const h=document.getElementById('ns206Candidates');state.candidates.forEach((c,i)=>{const b=document.createElement('button');b.textContent=c.label+(c.why?' · '+c.why:'');b.onclick=()=>resolveCandidate(i);h.appendChild(b)});document.getElementById('ns206Close').onclick=close}
 async function start(section,name){const original=safeName(name);if(!original)return;const token=++state.token;state={section,original,candidates:[],selected:null,token};show(`<h3>🔎 ${esc(original)}</h3><p>후보를 찾고 있어요…</p><div class="actions"><button id="ns206Close">닫기</button></div>`);document.getElementById('ns206Close').onclick=close;const cs=await getCandidates(section,original);if(!valid(token))return;state.candidates=cs;renderCandidates()}
 async function resolveCandidate(i){const cand=state.candidates[i];if(!cand)return;state.selected=cand;const token=++state.token;show(`<h3>🔎 ${esc(cand.label)}</h3><p>카드 자료를 찾고 있어요…</p><p class="note">후보를 찾을 때 확인한 같은 대상의 이름도 함께 사용합니다.</p>`);let v=null,err=null;const terms=[cand.query,cand.searchName,...(Array.isArray(cand.aliases)?cand.aliases:[]),cand.label].map(safeName).filter(Boolean).filter((x,j,a)=>a.indexOf(x)===j).slice(0,5);for(const term of terms){if(!valid(token))return;try{v=await Promise.race([ONE_CARD_ENGINE.resolve({section:String(state.section),name:term}),new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),12000))]);if(v?.desc){cand.usedQuery=term;break}}catch(e){err=e;console.warn('[NS90.211 resolve]',term,e)}}if(!valid(token))return;if(v?.desc){try{v=await ns90188AutoQuality(state.section,cand.label,v)}catch(_){}return renderPreview(cand,v)}const msg=err&&err.message==='timeout'?'검색 시간이 길어 이번 검색을 마쳤습니다.':'이 후보와 같은 대상을 가리키는 이름까지 확인했지만 충분한 카드 자료를 찾지 못했습니다.';show(`<h3>${esc(cand.label)}</h3><p>${esc(msg)}</p><div class="actions"><button id="ns206Back">← 후보 다시 보기</button><button id="ns206Close">닫기</button></div>`);document.getElementById('ns206Back').onclick=renderCandidates;document.getElementById('ns206Close').onclick=close}
-function renderPreview(cand,v){const display=safeName(cand.label||state.original);state.preview={cand,v,display};/* NS90.231: preview is temporary only. Do not write board/READY state until the user explicitly presses Save. */show(`<h3>${esc(display)}</h3><p>${esc(v.desc||'')}</p>${v.photo?`<img src="${esc(v.photo)}" alt="" style="max-width:100%;max-height:330px;border-radius:14px">`:''}<div class="actions"><button id="ns206Save">⭐ 이 항목 추가</button><button id="ns206Back">← 후보 다시 보기</button><button id="ns206Close">닫기</button></div>`);document.getElementById('ns206Back').onclick=renderCandidates;document.getElementById('ns206Close').onclick=close;document.getElementById('ns206Save').onclick=()=>savePreview(cand,v,display)}
+function renderPreview(cand,v){const display=safeName(cand.label||state.original);state.preview={cand,v,display};/* NS90.232: preview is temporary only. Do not write board/READY state until the user explicitly presses Save. */show(`<h3>${esc(display)}</h3><p>${esc(v.desc||'')}</p>${v.photo?`<img src="${esc(v.photo)}" alt="" style="max-width:100%;max-height:330px;border-radius:14px">`:''}<div class="actions"><button id="ns206Save">⭐ 이 항목 추가</button><button id="ns206Back">← 후보 다시 보기</button><button id="ns206Close">닫기</button></div>`);document.getElementById('ns206Back').onclick=renderCandidates;document.getElementById('ns206Close').onclick=close;document.getElementById('ns206Save').onclick=()=>savePreview(cand,v,display)}
 async function savePreview(cand,v,display){const section=state.section;try{const active=getCustom(section);if(hasIdentity(display,active)||hasIdentity(cand.label,active)){alert('이미 같은 항목이 있습니다.');return}}catch(_){}show(`<h3>${esc(display)}</h3><p>카드를 저장하고 있어요…</p>`);const item={id:newItemId(),name:display,desc:v.desc,emoji:'⭐',source:typeof ns90155CardSource==='function'?ns90155CardSource(section,display):'',photoVerified:!!v.photo,photoRemote:v.photo||'',entityId:String(v.entityId||''),entityTitle:String(v.entityTitle||cand.label||''),searchAlias:String(cand.query||cand.label||''),pageId:v.pageId==null?'':String(v.pageId)};try{await ns90106AppendCard(section,item);try{putAdded(section,display,{searchAlias:item.searchAlias})}catch(_){}try{ns9053SaveReady(v12Request(section,display),{...v,searchAlias:item.searchAlias,representativeName:display})}catch(_){}close();try{await renderSection(section);await renderRepresentativeCardButtonsV5(section);if(typeof paintAdded==='function')paintAdded(section)}catch(_){}}catch(e){console.warn('[NS90.211 save]',e);show(`<h3>${esc(display)}</h3><p>카드 저장 중 오류가 발생했습니다.</p><div class="actions"><button id="ns206Back">← 후보 다시 보기</button><button id="ns206Close">닫기</button></div>`);document.getElementById('ns206Back').onclick=renderCandidates;document.getElementById('ns206Close').onclick=close}}
 window.addItem=async function(section,prefill=''){let n=prefill||prompt('추가할 항목의 이름을 입력하세요.\n정확하지 않아도 비슷한 항목을 찾아드립니다.');if(!n||!n.trim())return;n=n.trim();try{if(hasIdentity(n,getCustom(section))){alert('이미 같은 항목이 있습니다.');return}}catch(_){}return start(section,n)};
 window.v18ManualAssist=async(section,name)=>start(section,name);window.v22ShowAssistResults=async(section,name)=>start(section,name);
-function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{document.querySelectorAll('.add-btn').forEach(x=>x.textContent='항목 추가')}catch(_){}}
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{document.querySelectorAll('.add-btn').forEach(x=>x.textContent='항목 추가')}catch(_){}}
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);window.__NS90206={version:VERSION,principle:'one direct-add owner; body overlay independent of section rerender; no observer; no duplicate UI flow'};
 })();
 </script>
@@ -4621,7 +4631,7 @@ sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListene
 <script id="ns90209-evidence-relation-candidate-engine">
 (()=>{
 'use strict';
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 function N(v){try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}}
 function clean(v){return String(v||'').replace(/<[^>]*>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ').trim()}
 function cName(){try{return countries?.[COUNTRY]?.name||''}catch(_){return ''}}
@@ -4648,7 +4658,7 @@ async function contextCandidates(section,name){const original=cardInputName(name
  return out.sort((a,b)=>(b.score||0)-(a.score||0)).slice(0,8)
 }
 window.ns90200Candidates=contextCandidates;try{ns90196NameCandidates=contextCandidates}catch(_){}
-function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){} }
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){} }
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>setTimeout(sync,250));
 window.__NS90209_CONTEXT={version:VERSION,rule:'relation typed before card quality; current-country/category evidence required for broader candidates; exact entity only for same-name labels; candidate aliases persist into bounded card search; no item-specific synonym table'};
 })();
@@ -4658,7 +4668,7 @@ window.__NS90209_CONTEXT={version:VERSION,rule:'relation typed before card quali
 <script id="ns90210-selected-name-and-user-added-persistence">
 (()=>{
 'use strict';
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 // User-added discoveries are knowledge-board entries, not temporary cards.
 // Keep them in the board even after their visible card is deleted.
 try{
@@ -4683,7 +4693,7 @@ if(typeof oldRefresh==='function')window.v26RefreshOverviewRep=function(section)
 };
 function sync(){
   try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}
-  try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+  try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
   try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){}
 }
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>setTimeout(sync,250));
@@ -4695,7 +4705,7 @@ window.__NS90210={version:VERSION,rule:'selected candidate label is saved as ite
 <script id="ns90211-durable-user-added-ready">
 (()=>{
 'use strict';
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const PREFIX='magic_ns90200_added|';
 const N=v=>{try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}};
 const key=(section,country=String(COUNTRY||''))=>PREFIX+country+'|'+section;
@@ -4759,7 +4769,7 @@ try{
 }catch(e){console.warn('[NS90.211 paint wrapper]',e)}
 function sync(){
   try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}
-  try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+  try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
 }
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>setTimeout(sync,250));
 window.__NS90211={version:VERSION,rule:'user-added discovery registry is read directly from localStorage; delete removes only the visible card; prepared item remains and repaints light blue; no new search engine'};
@@ -4775,7 +4785,7 @@ window.__NS90211={version:VERSION,rule:'user-added discovery registry is read di
 <script id="ns90213-card-only-delete">
 (()=>{
 'use strict';
-const VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const PREFIX='magic_ns90200_added|';
 const N=v=>{try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\\s+/g,'')}};
 const clean=v=>{try{return cardInputName(String(v||''))}catch(_){return String(v||'').trim()}};
@@ -4793,7 +4803,7 @@ const baseDelete=ns9096DeleteDurable;
 ns9096DeleteDurable=async function(section,itemId){let snap=null;try{snap=(getCustom(section)||[]).find(x=>String(x.id)===String(itemId))||null}catch(_){}const user=!!(snap&&(hasReg(section,snap.name)||String(snap.source||'').includes('항목')||String(snap.source||'')==='manual'||String(snap.source||'')==='user-add'||snap.searchAlias));if(user)preserveReady(section,snap);const result=await baseDelete.apply(this,arguments);if(user){preserveReady(section,snap);try{await renderSection(section)}catch(_){}try{await renderRepresentativeCardButtonsV5(section)}catch(_){}setTimeout(()=>paint(section),0);setTimeout(()=>paint(section),120)}return result};
 // Repaint after every board rebuild.
 try{const prevBoard=window.renderRepresentativeCardButtonsV5;if(typeof prevBoard==='function')window.renderRepresentativeCardButtonsV5=async function(section){const r=await prevBoard(section);paint(section);return r}}catch(_){}
-function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){}}
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=VERSION}catch(_){}}
 sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>{sync();setTimeout(()=>{try{REP_SECTIONS.forEach(paint)}catch(_){}},250)});
 window.__NS90213={version:VERSION,rule:'capture user-added identity before delete; delete visible card only; keep registry and READY; rebuild board and return item to light-blue plus state'};
 })();
@@ -4804,7 +4814,7 @@ window.__NS90213={version:VERSION,rule:'capture user-added identity before delet
 <script id="ns90214-release-owner">
 (()=>{
 'use strict';
-const RELEASE='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const RELEASE='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 function removeEscapedNewlineText(){
   try{
     const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
@@ -4818,7 +4828,7 @@ function removeEscapedNewlineText(){
 }
 function ownRelease(){
   try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE;b.style.position='static'}}catch(_){}
-  try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+  try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
   try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE}catch(_){}
   removeEscapedNewlineText();
 }
@@ -4842,7 +4852,7 @@ window.__NS90214={version:RELEASE,rule:'single visible release owner; removes st
 <script id="ns90215-user-added-board-final">
 (()=>{
 'use strict';
-const RELEASE='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const RELEASE='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 const PREFIX='magic_ns90200_added|';
 const N=v=>{try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\s+/g,'')}};
 const clean=v=>{try{return cardInputName(String(v||''))}catch(_){return String(v||'').trim()}};
@@ -4877,7 +4887,7 @@ ns9096DeleteDurable=async function(section,itemId){let snap=null;try{snap=(getCu
  if(user){saveReg(section,snap.name,{searchAlias:snap.searchAlias||snap.entityTitle||''});try{if(snap.desc)ns9053SaveReady(v12Request(section,snap.name),{title:String(snap.entityTitle||snap.name),desc:String(snap.desc),photo:String(snap.photoRemote||''),photos:snap.photoRemote?[String(snap.photoRemote)]:[],entityId:String(snap.entityId||''),pageId:snap.pageId==null?'':String(snap.pageId),searchAlias:String(snap.searchAlias||''),representativeName:String(snap.name),preparedAt:Date.now(),qualityGate:'pass-prepared',userAdded:true})}catch(_){}}
  const out=await prevDelete.apply(this,arguments);
  if(user){saveReg(section,snap.name,{searchAlias:snap.searchAlias||snap.entityTitle||''});setTimeout(()=>ensureBoardItems(section),0);setTimeout(()=>ensureBoardItems(section),150)}return out};
-function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE}catch(_){}try{REP_SECTIONS.forEach(ensureBoardItems)}catch(_){}}
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE}catch(_){}try{REP_SECTIONS.forEach(ensureBoardItems)}catch(_){}}
 sync();document.addEventListener('DOMContentLoaded',()=>setTimeout(sync,80));window.addEventListener('load',()=>{setTimeout(sync,250);setTimeout(sync,800)});
 window.__NS90215={version:RELEASE,rule:'user-added discovery is a durable board item independent of visible card; deleting card returns it to light-blue plus ready state'};
 })();
@@ -4887,28 +4897,28 @@ window.__NS90215={version:RELEASE,rule:'user-added discovery is a durable board 
 <script id="ns90217-final-release-owner">
 (()=>{
 'use strict';
-const RELEASE217='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const RELEASE217='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
 function paint216(){
  const b=document.getElementById('ns9015Banner');
- if(b){b.textContent='✅ '+RELEASE217;b.style.position='static';b.dataset.release='NS90.231';}
- try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+ if(b){b.textContent='✅ '+RELEASE217;b.style.position='static';b.dataset.release='NS90.232';}
+ try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
  try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE217}catch(_){}
 }
 paint216();
 document.addEventListener('DOMContentLoaded',paint216);
 window.addEventListener('load',()=>{paint216();setTimeout(paint216,100);setTimeout(paint216,500);setTimeout(paint216,1500)});
-/* NS90.231: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
+/* NS90.232: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
 window.__NS90217={version:RELEASE217,rule:'final visible version owner; user-added board survives visible card deletion'};
 })();
 </script>
 
 <script id="ns90218-only-visible-version-owner">
 (()=>{
- const RELEASE218='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+ const RELEASE218='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
  function own(){
    const b=document.getElementById('ns9015Banner');
-   if(b){ b.textContent='✅ '+RELEASE218; b.style.position='static'; b.dataset.release='NS90.231'; }
-   document.title='요술방망이 백과사전 · NS90.231';
+   if(b){ b.textContent='✅ '+RELEASE218; b.style.position='static'; b.dataset.release='NS90.232'; }
+   document.title='요술방망이 백과사전 · NS90.232';
    try{ if(window.__NS9021_ONE_ENGINE) window.__NS9021_ONE_ENGINE.version=RELEASE218; }catch(_){}
  }
  own();
@@ -4920,7 +4930,7 @@ window.__NS90217={version:RELEASE217,rule:'final visible version owner; user-add
 </script>
 
 
-<!-- NS90.231 FINAL: user-added item is independent from visible card; card deletion must return board item to light-blue READY. -->
+<!-- NS90.232 FINAL: user-added item is independent from visible card; card deletion must return board item to light-blue READY. -->
 <style id="ns90219-user-added-delete-return-style">
 .ns195-chip.user-added-ready{background:#e9f6ff!important;border-color:#78bce6!important;color:#176b9c!important}
 .ns195-chip.user-added-saved{background:#eaf8ee!important;border-color:#86c99a!important;color:#276b3a!important}
@@ -4953,9 +4963,9 @@ try{const prevDelete219=ns9096DeleteDurable;ns9096DeleteDurable=async function(s
  // Fallback for older user-added cards: match by stable identity/name when the registry already contains the discovery.
  if(!row&&snap){row=beforeRows.find(x=>n219(x.name)===n219(snap.entityTitle)||n219(x.name)===n219(snap.searchAlias))||null}
  const isUser=!!row;if(isUser)preserve219(section,snap,row);const out=await prevDelete219.apply(this,arguments);if(isUser){preserve219(section,snap,row);try{await renderRepresentativeCardButtonsV5(section)}catch(_){}repaintLater219(section)}return out}}catch(e){console.warn('[NS90.226 delete owner]',e)}
-function release219(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE219;b.style.position='static';b.dataset.release='NS90.231'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE219}catch(_){}try{REP_SECTIONS.forEach(paint219)}catch(_){}}
+function release219(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE219;b.style.position='static';b.dataset.release='NS90.232'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE219}catch(_){}try{REP_SECTIONS.forEach(paint219)}catch(_){}}
 release219();document.addEventListener('DOMContentLoaded',()=>setTimeout(release219,80));window.addEventListener('load',()=>{setTimeout(release219,180);setTimeout(release219,700)});
-/* NS90.231: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
+/* NS90.232: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
 window.__NS90219={version:RELEASE219,rule:'user-added registry survives independently; deleting only the visible card returns the item to light-blue ready state after every redraw'};
 })();
 </script>
@@ -5029,20 +5039,20 @@ function release220(){
  try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE220}catch(_){}
 }
 release220();setTimeout(release220,0);setTimeout(release220,300);setTimeout(release220,1200);
-/* NS90.231: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
+/* NS90.232: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
 window.__NS90220={version:RELEASE220,rule:'iPad Safari refresh/pageshow restores the current country detail and redraws saved/prepared boards from session state'};
 })();
 </script>
 
-<!-- NS90.231 FINAL PERSISTENCE: one passive release owner; no competing banner observers. -->
+<!-- NS90.232 FINAL PERSISTENCE: one passive release owner; no competing banner observers. -->
 <script id="ns90223-startup-fix">
 (()=>{
 'use strict';
-const RELEASE223='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
-const TOKEN223='NS90.231-SAVE-ONLY-FINAL-1004C';
+const RELEASE223='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+const TOKEN223='NS90.232-SAVE-COMMIT-FINAL-1004C';
 function paint223(){
- try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE223;b.style.position='static';b.dataset.release='NS90.231';b.dataset.build='227-1004C';}}catch(_){}
- try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}
+ try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE223;b.style.position='static';b.dataset.release='NS90.232';b.dataset.build='227-1004C';}}catch(_){}
+ try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}
  try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE223}catch(_){}
 }
 window.__NS90223_BUILD_TOKEN=TOKEN223;
@@ -5057,14 +5067,17 @@ window.__NS90223={version:RELEASE223,rule:'startup cannot be locked by competing
 })();
 </script>
 
-\n<script id="ns90225-candidate-restore">\n(()=>{\n'use strict';\nconst VERSION='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';\nconst N=v=>{try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\\s+/g,'')}};\nconst clean=v=>String(v||'').replace(/<[^>]*>/g,' ').replace(/&[^;]+;/g,' ').replace(/\\s+/g,' ').trim();\nconst country=()=>{try{return countries?.[COUNTRY]?.name||''}catch(_){return ''}};\nconst scope=s=>({food:'음식 요리 식생활',fruit:'과일 열매 품종',animals:'동물 식물 생물',places:'명소 장소 관광',culture:'문화 전통 축제',singers:'가수 음악',athletes:'운동선수 스포츠',people:'역사 인물',art:'예술 작품'})[s]||'';\nconst type=s=>({food:['요리','음식','구이','국','탕','면','밥','덮밥','소스','장','찜','회','초밥','라멘','수프','料理','丼','焼','dish','food','cuisine'],fruit:['과일','열매','품종','fruit','berry','citrus'],animals:['동물','식물','나무','새','물고기','생물','animal','plant','tree','bird','fish'],places:['도시','건축','사원','공원','궁전','박물관','산','섬','명소','place','city','temple','park','museum'],culture:['문화','전통','축제','의식','공연','스포츠','culture','festival','tradition'],singers:['가수','음악가','singer','musician'],athletes:['선수','athlete','player'],people:['인물','정치인','작가','왕','황제','person','politician','writer'],art:['그림','회화','조각','작품','미술','painting','artwork','sculpture']})[s]||[];\nasync function wiki(q,n=14){try{const u='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&srlimit='+n+'&srnamespace=0&format=json&origin=*';const r=await fetch(u);if(r.ok)return (await r.json()).query?.search||[]}catch(_){}return []}\nasync function wd(q,n=10){try{const u='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=ko&uselang=ko&type=item&limit='+n+'&format=json&origin=*';const r=await fetch(u);if(r.ok)return (await r.json()).search||[]}catch(_){}return []}\nfunction catScore(section,text){const t=clean(text).toLowerCase();let n=0;for(const w of type(section))if(t.includes(String(w).toLowerCase()))n+=8;return n}\nasync function aliases(label){const out=[];try{const rows=await wd(label,6),e0=rows.find(x=>N(x.label)===N(label))||rows[0];if(!e0?.id)return out;const u='https://www.wikidata.org/w/api.php?action=wbgetentities&ids='+encodeURIComponent(e0.id)+'&props=labels|aliases&languages=ko|en|ja|es&format=json&origin=*';const r=await fetch(u);if(!r.ok)return out;const e=(await r.json()).entities?.[e0.id];for(const lang of ['ko',COUNTRY==='JP'?'ja':COUNTRY==='ES'?'es':'en','en']){if(e?.labels?.[lang]?.value)out.push(e.labels[lang].value);for(const a of (e?.aliases?.[lang]||[]).slice(0,4))out.push(a.value)}}catch(_){}return [...new Set(out)].slice(0,8)}\nasync function restored(section,name){\n const original=cardInputName(name),c=country(),sc=scope(section),out=[],seen=new Set();\n const add=(label,why,kind,score,als=[])=>{label=clean(label).replace(/\\s*\\([^)]*\\)\\s*$/,'').trim();const k=N(label);if(!label||!k||seen.has(k)||label.length>50)return;seen.add(k);out.push({label,query:label,searchName:label,why,kind,score,aliases:als})};\n add(original,'입력한 이름','input',1000,[]);\n // 1. 이미 알고 있는 현재 카테고리 이름 중 입력어와 직접 겹치는 항목\n try{for(const x of importanceNames(section)||[]){const label=cardInputName(x);if(label&&N(label)!==N(original)&&(N(label).includes(N(original))||N(original).includes(N(label))))add(label,'직접 관련된 구체적 항목','direct',260,[])}}catch(_){}\n // 2. 입력어 자체의 같은 대상 이름. 카테고리 판정 실패만으로 버리지 않는다.\n try{const rows=await wd(original,10),exact=rows.find(x=>N(x.label)===N(original));if(exact){for(const a of await aliases(exact.label)){if(N(a)!==N(original))add(a,'같은 대상의 다른 이름','same',230,[])}}}catch(_){}\n // 3. 이전의 풍부한 검색을 복원하되, 입력어가 제목/설명에 실제 등장하고 현재 카테고리 근거가 있는 것만 채택\n const qs=[`"${original}" ${sc}`,`${original} ${c} ${sc}`,`${c} ${original} ${sc}`,`${original} ${sc}`].filter(Boolean);\n const pool=[];for(const q of qs){for(const x of await wiki(q,14)){const label=clean(x.title),sn=clean(x.snippet);if(!label||N(label)===N(original))continue;let score=catScore(section,label+' '+sn);const direct=N(label).includes(N(original))||N(sn).includes(N(original));if(direct)score+=38;if(c&&(label.includes(c)||sn.includes(c)))score+=10;if(direct&&score>=38)pool.push({label,sn,score})}if(pool.length>=18)break}\n for(const q of qs.slice(0,3)){for(const x of await wd(q,10)){const label=clean(x.label),d=clean(x.description);if(!label||N(label)===N(original))continue;let score=catScore(section,label+' '+d);const direct=N(label).includes(N(original))||N(d).includes(N(original));if(direct)score+=34;if(c&&(label.includes(c)||d.includes(c)))score+=10;if(direct&&score>=34)pool.push({label,sn:d,score})}}\n pool.sort((a,b)=>b.score-a.score);\n for(const x of pool){const t=(x.label+' '+x.sn).toLowerCase();if(section==='food'&&/(도시|거리|영화|앨범|노래|회사|역|철도|선거|정당)/.test(t))continue;add(x.label,'관련해서 알아볼 항목','related',x.score,await aliases(x.label));if(out.length>=8)break}\n return out.sort((a,b)=>(b.score||0)-(a.score||0)).slice(0,8);\n}\ntry{window.ns90200Candidates=restored;ns90200Candidates=restored;ns90196NameCandidates=restored}catch(e){console.warn('[NS90.226 candidate restore]',e)}\nfunction sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}}\nsync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>setTimeout(sync,200));\nwindow.__NS90225={version:VERSION,rule:'restore broad context discovery, then filter by direct input evidence and current category; no item-specific synonym table'};\n})();\n</script>\n
+\n<script id="ns90225-candidate-restore">\n(()=>{\n'use strict';\nconst VERSION='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';\nconst N=v=>{try{return normalizeItemName(String(v||''))}catch(_){return String(v||'').toLowerCase().replace(/\\s+/g,'')}};\nconst clean=v=>String(v||'').replace(/<[^>]*>/g,' ').replace(/&[^;]+;/g,' ').replace(/\\s+/g,' ').trim();\nconst country=()=>{try{return countries?.[COUNTRY]?.name||''}catch(_){return ''}};\nconst scope=s=>({food:'음식 요리 식생활',fruit:'과일 열매 품종',animals:'동물 식물 생물',places:'명소 장소 관광',culture:'문화 전통 축제',singers:'가수 음악',athletes:'운동선수 스포츠',people:'역사 인물',art:'예술 작품'})[s]||'';\nconst type=s=>({food:['요리','음식','구이','국','탕','면','밥','덮밥','소스','장','찜','회','초밥','라멘','수프','料理','丼','焼','dish','food','cuisine'],fruit:['과일','열매','품종','fruit','berry','citrus'],animals:['동물','식물','나무','새','물고기','생물','animal','plant','tree','bird','fish'],places:['도시','건축','사원','공원','궁전','박물관','산','섬','명소','place','city','temple','park','museum'],culture:['문화','전통','축제','의식','공연','스포츠','culture','festival','tradition'],singers:['가수','음악가','singer','musician'],athletes:['선수','athlete','player'],people:['인물','정치인','작가','왕','황제','person','politician','writer'],art:['그림','회화','조각','작품','미술','painting','artwork','sculpture']})[s]||[];\nasync function wiki(q,n=14){try{const u='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&srlimit='+n+'&srnamespace=0&format=json&origin=*';const r=await fetch(u);if(r.ok)return (await r.json()).query?.search||[]}catch(_){}return []}\nasync function wd(q,n=10){try{const u='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=ko&uselang=ko&type=item&limit='+n+'&format=json&origin=*';const r=await fetch(u);if(r.ok)return (await r.json()).search||[]}catch(_){}return []}\nfunction catScore(section,text){const t=clean(text).toLowerCase();let n=0;for(const w of type(section))if(t.includes(String(w).toLowerCase()))n+=8;return n}\nasync function aliases(label){const out=[];try{const rows=await wd(label,6),e0=rows.find(x=>N(x.label)===N(label))||rows[0];if(!e0?.id)return out;const u='https://www.wikidata.org/w/api.php?action=wbgetentities&ids='+encodeURIComponent(e0.id)+'&props=labels|aliases&languages=ko|en|ja|es&format=json&origin=*';const r=await fetch(u);if(!r.ok)return out;const e=(await r.json()).entities?.[e0.id];for(const lang of ['ko',COUNTRY==='JP'?'ja':COUNTRY==='ES'?'es':'en','en']){if(e?.labels?.[lang]?.value)out.push(e.labels[lang].value);for(const a of (e?.aliases?.[lang]||[]).slice(0,4))out.push(a.value)}}catch(_){}return [...new Set(out)].slice(0,8)}\nasync function restored(section,name){\n const original=cardInputName(name),c=country(),sc=scope(section),out=[],seen=new Set();\n const add=(label,why,kind,score,als=[])=>{label=clean(label).replace(/\\s*\\([^)]*\\)\\s*$/,'').trim();const k=N(label);if(!label||!k||seen.has(k)||label.length>50)return;seen.add(k);out.push({label,query:label,searchName:label,why,kind,score,aliases:als})};\n add(original,'입력한 이름','input',1000,[]);\n // 1. 이미 알고 있는 현재 카테고리 이름 중 입력어와 직접 겹치는 항목\n try{for(const x of importanceNames(section)||[]){const label=cardInputName(x);if(label&&N(label)!==N(original)&&(N(label).includes(N(original))||N(original).includes(N(label))))add(label,'직접 관련된 구체적 항목','direct',260,[])}}catch(_){}\n // 2. 입력어 자체의 같은 대상 이름. 카테고리 판정 실패만으로 버리지 않는다.\n try{const rows=await wd(original,10),exact=rows.find(x=>N(x.label)===N(original));if(exact){for(const a of await aliases(exact.label)){if(N(a)!==N(original))add(a,'같은 대상의 다른 이름','same',230,[])}}}catch(_){}\n // 3. 이전의 풍부한 검색을 복원하되, 입력어가 제목/설명에 실제 등장하고 현재 카테고리 근거가 있는 것만 채택\n const qs=[`"${original}" ${sc}`,`${original} ${c} ${sc}`,`${c} ${original} ${sc}`,`${original} ${sc}`].filter(Boolean);\n const pool=[];for(const q of qs){for(const x of await wiki(q,14)){const label=clean(x.title),sn=clean(x.snippet);if(!label||N(label)===N(original))continue;let score=catScore(section,label+' '+sn);const direct=N(label).includes(N(original))||N(sn).includes(N(original));if(direct)score+=38;if(c&&(label.includes(c)||sn.includes(c)))score+=10;if(direct&&score>=38)pool.push({label,sn,score})}if(pool.length>=18)break}\n for(const q of qs.slice(0,3)){for(const x of await wd(q,10)){const label=clean(x.label),d=clean(x.description);if(!label||N(label)===N(original))continue;let score=catScore(section,label+' '+d);const direct=N(label).includes(N(original))||N(d).includes(N(original));if(direct)score+=34;if(c&&(label.includes(c)||d.includes(c)))score+=10;if(direct&&score>=34)pool.push({label,sn:d,score})}}\n pool.sort((a,b)=>b.score-a.score);\n for(const x of pool){const t=(x.label+' '+x.sn).toLowerCase();if(section==='food'&&/(도시|거리|영화|앨범|노래|회사|역|철도|선거|정당)/.test(t))continue;add(x.label,'관련해서 알아볼 항목','related',x.score,await aliases(x.label));if(out.length>=8)break}\n return out.sort((a,b)=>(b.score||0)-(a.score||0)).slice(0,8);\n}\ntry{window.ns90200Candidates=restored;ns90200Candidates=restored;ns90196NameCandidates=restored}catch(e){console.warn('[NS90.226 candidate restore]',e)}\nfunction sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+VERSION;b.style.position='static'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}}\nsync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',()=>setTimeout(sync,200));\nwindow.__NS90225={version:VERSION,rule:'restore broad context discovery, then filter by direct input evidence and current category; no item-specific synonym table'};\n})();\n</script>\n
 <script id="ns90227-preview-persistence-release">
 (()=>{
 'use strict';
-const RELEASE='MASTER V28 · NS90.231 SAVE-ONLY FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
-function sync227(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE;b.style.position='static';b.dataset.release='NS90.231';}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.231'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE}catch(_){}}
+const RELEASE='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';
+function sync227(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE;b.style.position='static';b.dataset.release='NS90.232';}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE}catch(_){}}
 sync227();document.addEventListener('DOMContentLoaded',sync227);window.addEventListener('load',()=>{setTimeout(sync227,50);setTimeout(sync227,500)});
 window.__NS90227={version:RELEASE,rule:'preview is temporary; only explicit Save persists user-added READY/card state; 227 search flow preserved'};
 })();
+</script>
+<script id="ns90232-save-commit-release">
+(()=>{const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+V;b.dataset.release='NS90.232'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}}sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',()=>setTimeout(sync,100));window.__NS90232={version:V,rule:'preview writes no user-added board state; explicit Save awaits IndexedDB commit, verifies it, then persists user-added board entry'};})();
 </script>
 </body></html>
