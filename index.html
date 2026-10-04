@@ -5080,4 +5080,46 @@ window.__NS90227={version:RELEASE,rule:'preview is temporary; only explicit Save
 <script id="ns90232-save-commit-release">
 (()=>{const V='MASTER V28 · NS90.232 SAVE-COMMIT FINAL · ONE VERSION OWNER · USER-ADDED BOARD SURVIVES DELETE · TWO PASS SEARCH · ONE COMMON ENGINE';function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+V;b.dataset.release='NS90.232'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.232'}catch(_){}}sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',()=>setTimeout(sync,100));window.__NS90232={version:V,rule:'preview writes no user-added board state; explicit Save awaits IndexedDB commit, verifies it, then persists user-added board entry'};})();
 </script>
+
+<script id="ns90233-final-save-repair">
+(()=>{
+'use strict';
+const V='MASTER V28 · NS90.233 FINAL SAVE REPAIR · 227 SEARCH PRESERVED · EXPLICIT SAVE ONLY';
+// Final owner of the card append operation. Search/preview code is untouched.
+window.ns90106AppendCard=ns90106AppendCard=async function(section,item){
+ const country=String(COUNTRY||''), mk=cardStoreKey(country,section);
+ const before=Array.isArray(getCustom(section))?getCustom(section):[];
+ const fresh=JSON.parse(JSON.stringify({...item,id:String(item?.id||newItemId())}));
+ if(!fresh.name||!fresh.desc) throw new Error('CARD_DATA_INCOMPLETE');
+ const nk=normalizeItemName(fresh.name);
+ const merged=before.filter(x=>normalizeItemName(x?.name||'')!==nk).concat([fresh]);
+ // Commit first to IndexedDB and wait for transaction completion.
+ await cardDBPut(country,section,merged);
+ // Read back from IndexedDB before reporting success.
+ const check=await cardDBGet(country,section);
+ const saved=Array.isArray(check)&&check.some(x=>String(x.id)===String(fresh.id)||normalizeItemName(x?.name||'')===nk);
+ if(!saved) throw new Error('CARD_COMMIT_VERIFY_FAILED');
+ // Only after verified commit, update the synchronous in-memory source used by renderSection.
+ CARD_MEM.set(mk,check.map(x=>({...x})));
+ // Compatibility mirror is best effort; quota failure cannot undo the IndexedDB commit.
+ try{localStorage.setItem(`${DATA_NS}custom_${country}_${section}`,JSON.stringify(check.map(ns9055CompactCardForLocal)))}catch(_){}
+ item.id=fresh.id;
+ return true;
+};
+// On reload, make IndexedDB authoritative and repopulate CARD_MEM before repainting visible cards.
+async function rehydrate233(){
+ try{
+  const sections=['food','animals','fruit','places','culture','singers','athletes','people','art'];
+  for(const sec of sections){const a=await cardDBGet(String(COUNTRY||''),sec);if(a.length)CARD_MEM.set(cardStoreKey(String(COUNTRY||''),sec),a.map(x=>({...x})))}
+  if(!document.getElementById('detail')?.classList.contains('hidden'))for(const sec of sections)await renderSection(sec);
+ }catch(e){console.warn('[NS90.233 hydrate]',e)}
+}
+function sync(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+V;b.dataset.release='NS90.233'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.233'}catch(_){}}
+sync();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{sync();setTimeout(rehydrate233,80)},{once:true});else setTimeout(rehydrate233,80);
+window.addEventListener('pageshow',()=>setTimeout(rehydrate233,120));
+window.__NS90233={version:V,rule:'227 search untouched; preview never commits; explicit save waits for IndexedDB transaction and read-back verification'};
+})();
+</script>
+
 </body></html>
