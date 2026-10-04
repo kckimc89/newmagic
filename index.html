@@ -1,4 +1,4 @@
-<!-- BUILD_TOKEN: NS90.222-NEWREPO-1004A -->
+<!-- BUILD_TOKEN: NS90.223-STARTUP-FIX-1004B -->
 <!DOCTYPE html>
 
 <html lang="ko"><head>
@@ -4897,8 +4897,7 @@ function paint216(){
 paint216();
 document.addEventListener('DOMContentLoaded',paint216);
 window.addEventListener('load',()=>{paint216();setTimeout(paint216,100);setTimeout(paint216,500);setTimeout(paint216,1500)});
-const mo=new MutationObserver(()=>{const b=document.getElementById('ns9015Banner');if(b&&b.dataset.release!=='NS90.219'){paint216()}else if(b&&b.textContent!=='✅ '+RELEASE217){b.textContent='✅ '+RELEASE217}});
-try{mo.observe(document.documentElement,{subtree:true,childList:true,characterData:true})}catch(_){}
+/* NS90.223: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
 window.__NS90217={version:RELEASE217,rule:'final visible version owner; user-added board survives visible card deletion'};
 })();
 </script>
@@ -4956,7 +4955,7 @@ try{const prevDelete219=ns9096DeleteDurable;ns9096DeleteDurable=async function(s
  const isUser=!!row;if(isUser)preserve219(section,snap,row);const out=await prevDelete219.apply(this,arguments);if(isUser){preserve219(section,snap,row);try{await renderRepresentativeCardButtonsV5(section)}catch(_){}repaintLater219(section)}return out}}catch(e){console.warn('[NS90.219 delete owner]',e)}
 function release219(){try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE219;b.style.position='static';b.dataset.release='NS90.219'}}catch(_){}try{document.title='요술방망이 백과사전 · NS90.219'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE219}catch(_){}try{REP_SECTIONS.forEach(paint219)}catch(_){}}
 release219();document.addEventListener('DOMContentLoaded',()=>setTimeout(release219,80));window.addEventListener('load',()=>{setTimeout(release219,180);setTimeout(release219,700)});
-const mo219=new MutationObserver(()=>{const b=document.getElementById('ns9015Banner');if(b&&(b.dataset.release!=='NS90.219'||b.textContent!=='✅ '+RELEASE219)){b.textContent='✅ '+RELEASE219;b.dataset.release='NS90.219'} });try{mo219.observe(document.documentElement,{subtree:true,childList:true,characterData:true})}catch(_){}
+/* NS90.223: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
 window.__NS90219={version:RELEASE219,rule:'user-added registry survives independently; deleting only the visible card returns the item to light-blue ready state after every redraw'};
 })();
 </script>
@@ -5030,38 +5029,31 @@ function release220(){
  try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE220}catch(_){}
 }
 release220();setTimeout(release220,0);setTimeout(release220,300);setTimeout(release220,1200);
-const mo220=new MutationObserver(()=>{const b=document.getElementById('ns9015Banner');if(b&&(b.dataset.release!=='NS90.220'||b.textContent!=='✅ '+RELEASE220)){b.textContent='✅ '+RELEASE220;b.dataset.release='NS90.220'}});
-try{mo220.observe(document.documentElement,{subtree:true,childList:true,characterData:true})}catch(_){}
+/* NS90.223: legacy banner MutationObserver retired to prevent observer ping-pong startup lock. */
 window.__NS90220={version:RELEASE220,rule:'iPad Safari refresh/pageshow restores the current country detail and redraws saved/prepared boards from session state'};
 })();
 </script>
-\n<!-- NS90.222 NEW REPOSITORY CLEAN START: search/card engine preserved; deployment address starts fresh. -->
-<script>
+
+<!-- NS90.223 STARTUP FIX: one passive release owner; no competing banner observers. -->
+<script id="ns90223-startup-fix">
 (()=>{
 'use strict';
-const RELEASE221='MASTER V28 · NS90.222 NEW REPOSITORY CLEAN START · BUILD 222-1004A · ONE COMMON ENGINE';
-const TOKEN221='NS90.222-NEWREPO-1004A';
-function paint221(){
- try{
-  let b=document.getElementById('ns9015Banner');
-  if(b){
-   b.textContent='✅ '+RELEASE221; b.style.position='static'; b.dataset.release='NS90.222'; b.dataset.build='222-1004A';
-  }
- }catch(_){}
- try{document.title='요술방망이 백과사전 · NS90.221'}catch(_){}
- try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE221}catch(_){}
+const RELEASE223='MASTER V28 · NS90.223 STARTUP FIX · NEW REPOSITORY · ONE VERSION OWNER · ONE COMMON ENGINE';
+const TOKEN223='NS90.223-STARTUP-FIX-1004B';
+function paint223(){
+ try{const b=document.getElementById('ns9015Banner');if(b){b.textContent='✅ '+RELEASE223;b.style.position='static';b.dataset.release='NS90.223';b.dataset.build='223-1004B';}}catch(_){}
+ try{document.title='요술방망이 백과사전 · NS90.223'}catch(_){}
+ try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=RELEASE223}catch(_){}
 }
-window.__NS90221_BUILD_TOKEN=TOKEN221;
-// If an old service worker or Cache Storage exists, retire it. This does not clear encyclopedia localStorage data.
-async function retireOldWebCache221(){
- try{if('serviceWorker' in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister().catch(()=>false)))}}catch(_){}
- try{if(window.caches&&caches.keys){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k).catch(()=>false)))}}catch(_){}
-}
-paint221();
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{paint221();retireOldWebCache221()},{once:true});else retireOldWebCache221();
-window.addEventListener('pageshow',()=>{paint221();setTimeout(paint221,250);setTimeout(paint221,1000)});
-const mo221=new MutationObserver(()=>{const b=document.getElementById('ns9015Banner');if(b&&(b.dataset.release!=='NS90.221'||b.textContent!=='✅ '+RELEASE221))paint221()});
-try{mo221.observe(document.documentElement,{subtree:true,childList:true,characterData:true})}catch(_){}
+window.__NS90223_BUILD_TOKEN=TOKEN223;
+// Do not clear Cache Storage or unregister workers during startup. New repository path is already isolated.
+// Paint only at bounded lifecycle points; never observe the banner itself.
+paint223();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{paint223();setTimeout(paint223,120);setTimeout(paint223,700)},{once:true});
+else {setTimeout(paint223,0);setTimeout(paint223,400);}
+window.addEventListener('load',()=>{paint223();setTimeout(paint223,500)},{once:true});
+window.addEventListener('pageshow',()=>{paint223();setTimeout(paint223,250)});
+window.__NS90223={version:RELEASE223,rule:'startup cannot be locked by competing version-banner MutationObservers; search/card engine preserved'};
 })();
 </script>
 
