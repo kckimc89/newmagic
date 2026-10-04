@@ -1729,7 +1729,7 @@ function ns177CleanCardKey(country,section,name){
  n=String(n||raw).trim().toLowerCase().replace(/\s+/g,' ');
  return [c,s,n].join('|');
 }
-const NS9015_VERSION='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+const NS9015_VERSION='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
 const NS9051_STATE_RULE='saved=green; verified-ready=purple; unverified=white; delete-card=>verified-ready';
 const ONE_TOPIC_ADAPTER={
  food:{kind:'food',ko:'음식'}, fruit:{kind:'fruit',ko:'과일'},
@@ -2193,7 +2193,7 @@ async function oneResolve(section,name,forcedKind=''){
  return {name:clean,title:finalName,resolvedName:finalName,entityId:best.p.pageprops?.wikibase_item||'',pageId:best.p.pageid||'',desc:cardDesc,photo,photos:photo?[photo]:[],sources:['NS90.39 검색 복구 기준 · NS90.33 검증 나라 연결 + NS90.30 풍부한 한국어 설명 + NS90.29 한국어 미리보기 보장 + NS90.28 한국어 설명 브리지 + NS90.27 안전 카드 품질 게이트 + NS90.26 다국어 동일대상 브리지'],score:bestScore,section,kind:topic.kind,qualityGate:{identity:true,type:true,description:true,photo:true,koreanPreview:true,countryContext:true,countryContextVerified}};
 }
 const ONE_CARD_ENGINE={
- version:'MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE',
+ version:'MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE',
  async resolve(input){return await oneResolve(input.section,input.name,input.kind||'')}
 };
 async function sharedResolve(name,type,section=''){return await ONE_CARD_ENGINE.resolve({section:section||type,name,kind:type})}
@@ -3042,7 +3042,7 @@ openCountry=function(code){
  return r;
 };
 
-window.__NS9021_ONE_ENGINE={version:'MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE',engine:ONE_CARD_ENGINE,rule:'country + section + name -> exactly one resolver'};
+window.__NS9021_ONE_ENGINE={version:'MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE',engine:ONE_CARD_ENGINE,rule:'country + section + name -> exactly one resolver'};
 window.__MAGIC_V7_DIAGNOSTIC={
  engine:'tested V3 core',
  lessonV23:'Fushimi/Yutoku: representative quality tie-break + exact selected-page photo binding',
@@ -3160,7 +3160,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 <!-- NS90.176: repair stale stableKey collisions by deriving identity from the card's current name. -->
 <script id="ns90167-card-identity-repair">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  function actualKey(country,section,x){
    const n=String(x?.name||x?.entityTitle||'').trim();
    try{return ns177CleanCardKey(country,section,n)}catch(_){return [String(country||COUNTRY||''),String(section||''),normalizeItemName(n)].join('|')}
@@ -3218,7 +3218,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 </script>
 <script id="ns90170-record-store">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  const DB='magic_wand_cards_ns171', STORE='card_records', MEM=new Map(), READY=new Set();
  const secs=['food','animals','fruit','places','culture','singers','athletes','people','art'];
  const oldGet=getCustom, oldSet=setCustom;
@@ -3265,7 +3265,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 </script>
 <script id="ns90171-nondestructive-save">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  // New rule: ordinary save/update may NEVER remove an existing card.
  // Only ns9096DeleteDurable is allowed to remove a card.
  function mergeKeepExisting(section,incoming){
@@ -3304,7 +3304,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 })();
 </script>
 <script id="ns90177-clean-engine">(()=>{
-const CLEAN_VERSION='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+const CLEAN_VERSION='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
 // ONE resolver only: the original common oneResolve-backed ONE_CARD_ENGINE from the base.
 // No resolver wrapping, no category-specific second engine, no retry wrapper.
 async function cleanResolve(section,name){
@@ -3348,7 +3348,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 })();</script>
 <script id="ns90185-france-state-repair">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE STATE REPAIR · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  // France uses the same representative state, but starts without years of old-device cache.
  // Make a successful READY snapshot authoritative on every repaint/reclick.
  const oldPaint=v16PaintRow;
@@ -3379,11 +3379,51 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 })();
 </script>
 
+
+<script id="ns90186-france-parity-repair">
+(()=>{
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
+ const RDB='magic_fr_ready_ns90186', RSTORE='ready', RMEM=new Map();
+ function rkey(req){return String(req?.key||'')}
+ function rdb(){return new Promise((res,rej)=>{const q=indexedDB.open(RDB,1);q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains(RSTORE))d.createObjectStore(RSTORE,{keyPath:'key'})};q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+ async function rput(req,v){const c=ns9053CompactVerified(v);if(!c)return false;const key=rkey(req);RMEM.set(key,c);try{const d=await rdb();await new Promise((res,rej)=>{const tx=d.transaction(RSTORE,'readwrite');tx.objectStore(RSTORE).put({key,value:c});tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});return true}catch(_){return false}}
+ async function rhydrate(){try{const d=await rdb();const rows=await new Promise((res,rej)=>{const tx=d.transaction(RSTORE,'readonly'),q=tx.objectStore(RSTORE).getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)});for(const x of rows)if(x&&x.key&&x.value?.desc)RMEM.set(String(x.key),x.value)}catch(_){}}
+ const oldLoad=ns9053LoadReady, oldSave=ns9053SaveReady;
+ ns9053LoadReady=function(req){const a=RMEM.get(rkey(req));if(a?.desc)return a;const b=oldLoad(req);if(b?.desc){RMEM.set(rkey(req),b);return b}return null};
+ ns9053SaveReady=function(req,v){const c=ns9053CompactVerified(v);if(!c)return;RMEM.set(rkey(req),c);try{oldSave(req,v)}catch(_){};rput(req,v).catch(()=>{})};
+ // France deletion: remove the clicked card from every card layer by id AND identity.
+ const oldDelete=ns9096DeleteDurable;
+ ns9096DeleteDurable=async function(section,itemId){
+   if(String(COUNTRY)!=='FR')return oldDelete(section,itemId);
+   const c='FR', b=String(c)+'|'+String(section), current=(getCustom(section)||[]).map(x=>({...x}));
+   const hit=current.find(x=>String(x.id)===String(itemId));
+   const hitName=normalizeItemName(String(hit?.name||hit?.entityTitle||''));
+   const keep=x=>String(x?.id)!==String(itemId) && (!hitName || normalizeItemName(String(x?.name||x?.entityTitle||''))!==hitName);
+   const next=current.filter(keep);
+   // NS90.176/180 record store
+   try{const d=await new Promise((res,rej)=>{const q=indexedDB.open('magic_wand_cards_ns171',1);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)});const all=await new Promise((res,rej)=>{const tx=d.transaction('card_records','readonly'),q=tx.objectStore('card_records').getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)});for(const x of all){if(!String(x.recordKey||'').startsWith(b+'|'))continue;if(String(x.id)===String(itemId)||(hitName&&normalizeItemName(String(x.name||x.entityTitle||''))===hitName)){await new Promise((res,rej)=>{const tx=d.transaction('card_records','readwrite');tx.objectStore('card_records').delete(x.recordKey);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}}}catch(e){console.warn('[186 record delete]',e)}
+   // NS90.55 legacy IndexedDB + in-memory + compact mirror
+   try{await cardDBPut(c,section,next.map(x=>({...x})))}catch(_){}
+   try{CARD_MEM.set(cardStoreKey(c,section),next.map(x=>({...x})))}catch(_){}
+   try{localStorage.setItem(`${DATA_NS}custom_${c}_${section}`,JSON.stringify(next.map(ns9055CompactCardForLocal)))}catch(_){}
+   return next;
+ };
+ // Make successful France READY survive even when localStorage is full.
+ const oldOpen=openRepresentativePreview;
+ openRepresentativePreview=function(section,name,verified,panel){if(String(COUNTRY)==='FR'&&verified?.desc){const req=v12Request(section,name);RMEM.set(rkey(req),ns9053CompactVerified(verified));rput(req,verified).catch(()=>{})}return oldOpen(section,name,verified,panel)};
+ async function repaintFrance(){if(String(COUNTRY)!=='FR')return;for(const sec of ['food','animals','fruit','places','culture','singers','athletes','people','art']){const st=v16State(sec);for(const row of st.rows.values()){const v=ns9053LoadReady(v12Request(sec,row.resolvedName||cardInputName(row.name)))||ns9053LoadReady(v12Request(sec,cardInputName(row.name)));if(v?.desc){row.ok=true;row.verified=v;row.pending=false}}try{await renderRepresentativeCardButtonsV5(sec)}catch(_){}}}
+ rhydrate().then(()=>repaintFrance());
+ const prevOpen=openCountry;openCountry=function(code){const r=prevOpen(code);if(code==='FR')setTimeout(()=>{rhydrate().then(repaintFrance)},180);return r};
+ function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.186'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+ sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,700);setInterval(sync,1500);
+})();
+</script>
+
 </body></html>
 <!-- NS90.130: exact NS90.120 proven ONE MASTER baseline restore. No search/resolver logic added. -->
 <script>
 (()=>{
-  const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+  const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
   try{
     const b=document.getElementById('ns9015Banner');
     if(b) b.textContent='✅ '+V;
@@ -3396,7 +3436,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.134: version sync + Spain person-card tidy. Locked core/fallback logic unchanged. -->
 <script id="ns90134-version-sync-spain-card-tidy">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  const ES_ORDER={
   singers:['훌리오 이글레시아스','엔리케 이글레시아스','로살리아','알레한드로 산스','파코 데 루시아','플라시도 도밍고','몬세라트 카바예'],
   athletes:['라파엘 나달','카를로스 알카라스','안드레스 이니에스타','사비 에르난데스','이케르 카시야스','파우 가솔','페르난도 알론소'],
@@ -3430,7 +3470,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.135: country data cleanup only. Search engine is intentionally untouched. -->
 <script id="ns90135-country-data-cleanup-only">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  const DATA={
   ES:{
    singers:['훌리오 이글레시아스','엔리케 이글레시아스','로살리아','알레한드로 산스','파코 데 루시아','플라시도 도밍고','몬세라트 카바예'],
@@ -3484,7 +3524,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.137 final visible version sync; no search logic changes. -->
 <script id="ns90138-final-version-sync">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  function sync138(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
  sync138(); setTimeout(sync138,0); setTimeout(sync138,300); setTimeout(sync138,1500); setTimeout(sync138,3500);
 })();
@@ -3492,7 +3532,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.140: iOS Safari ↔ Home Screen transfer bridge. Search engine untouched. -->
 <script id="ns90140-ios-transfer-bridge">
 (()=>{
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  const SKIP=new Set(['magic_ns90137_run_after_refresh']);
  function appKey(k){return k==='encyclopedia_title'||k==='country_favorites'||k.startsWith('magic_')||k.startsWith(DATA_NS)}
  function exportLocal(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i)||'';if(appKey(k)&&!SKIP.has(k))o[k]=localStorage.getItem(k)}return o}
@@ -3562,7 +3602,7 @@ more.FR={
  art:[['민중을 이끄는 자유의 여신','《민중을 이끄는 자유의 여신》은 외젠 들라크루아가 1830년 프랑스 7월 혁명을 주제로 그린 회화입니다.','📷'],['인상, 해돋이','《인상, 해돋이》는 클로드 모네가 르아브르 항구의 아침 풍경을 그린 작품으로 인상주의라는 이름과 깊이 연결되어 있습니다.','📷'],['수련','《수련》 연작은 클로드 모네가 지베르니 정원의 연못과 수련을 반복해서 그린 작품들입니다.','📷'],['생각하는 사람','《생각하는 사람》은 오귀스트 로댕의 대표적인 조각 작품 가운데 하나입니다.','📷'],['어린 왕자','《어린 왕자》는 프랑스 작가 앙투안 드 생텍쥐페리가 글과 그림을 만든 작품입니다.','📷']]
 };
 (function(){
- const V='MASTER V28 · NS90.185 FRANCE SAME ENGINE · NS90.180 CORE';
+ const V='MASTER V28 · NS90.186 FRANCE PARITY REPAIR · NS90.180 CORE';
  function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){} try{document.title='요술방망이 백과사전 · NS90.185'}catch(_){} try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
  sync(); addEventListener('DOMContentLoaded',sync); addEventListener('load',sync); setTimeout(sync,300); setTimeout(sync,1500);
 })();
