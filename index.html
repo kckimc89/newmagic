@@ -119,7 +119,7 @@ body.view-cards #detail .cards .item>.actions{display:none}
 .rep-card-btn-v5.verified-ready{background:#eee7ff!important;border:2px solid #7657e8!important;color:#352080!important;opacity:1!important;box-shadow:0 2px 7px rgba(80,55,170,.12)!important}
 .rep-card-btn-v5.registered,.rep-card-btn-v5.ns9017-done,.rep-card-btn-v5.ns9016-done{background:#e8f5e9!important;border:2px solid #78b487!important;color:#315f3b!important;opacity:1!important;box-shadow:none!important}
 </style>
-</head><body><div id="ns9015Banner" style="position:sticky;top:0;z-index:9999;background:#173f70;color:white;text-align:center;font-weight:800;padding:10px 8px;font-size:15px;letter-spacing:.2px">✅ MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED</div>
+</head><body><div id="ns9015Banner" style="position:sticky;top:0;z-index:9999;background:#173f70;color:white;text-align:center;font-weight:800;padding:10px 8px;font-size:15px;letter-spacing:.2px">✅ MASTER V28 · NS90.158 REPRESENTATIVE STATE DIAGNOSTIC · SEARCH CORE LOCKED · ONE MASTER</div>
 <style>
 #kbBtn{position:fixed;right:14px;bottom:14px;z-index:12020;border:0;border-radius:999px;padding:13px 17px;background:#244b76;color:#fff;font-weight:900;box-shadow:0 4px 14px #0003}
 #kbPanel{display:none;position:fixed;inset:0;z-index:12030;background:#f7f4ec;overflow:auto;padding:16px}
@@ -585,7 +585,7 @@ function ratioText(v,base,kind){let r=v/base;if(r>=1) return `대한민국의 �
 function favs(){try{return JSON.parse(localStorage.getItem('country_favorites')||'[]')}catch(e){return []}}
 let favOnly=false;
 function toggleFav(code,ev){ev.stopPropagation();let a=favs();a=a.includes(code)?a.filter(x=>x!==code):[...a,code];localStorage.setItem('country_favorites',JSON.stringify(a));renderHome()}
-function renderHome(){document.getElementById('continentChips').innerHTML=continents.map(x=>`<button class="chip ${x===filter?'active':''}" onclick="filterCont('${x}')">${x}</button>`).join('');let q=(document.getElementById('search').value||'').trim().toLowerCase(),fa=favs();let arr=Object.entries(countries).filter(([k,c])=>['ES','JP','US'].includes(k)).filter(([k,c])=>(filter==='전체'||c.continent===filter)&&(!favOnly||fa.includes(k))&&(!q||(c.name+c.en+c.capital).toLowerCase().includes(q)));document.getElementById('countryGrid').innerHTML=arr.map(([k,c])=>`<article class="country-card" onclick="openCountry('${k}')"><button class="favstar ${fa.includes(k)?'on':''}" onclick="toggleFav('${k}',event)">★</button><div class="flagemoji">${c.flag}</div><h2>${c.name}</h2><p>${c.en}</p><p>수도 · ${c.capital}</p><span class="tag">${c.continent}</span></article>`).join('')||'<p>조건에 맞는 나라가 없습니다.</p>'}
+function renderHome(){document.getElementById('continentChips').innerHTML=continents.map(x=>`<button class="chip ${x===filter?'active':''}" onclick="filterCont('${x}')">${x}</button>`).join('');let q=(document.getElementById('search').value||'').trim().toLowerCase(),fa=favs();let arr=Object.entries(countries).filter(([k,c])=>['ES','JP','US','FR'].includes(k)).filter(([k,c])=>(filter==='전체'||c.continent===filter)&&(!favOnly||fa.includes(k))&&(!q||(c.name+c.en+c.capital).toLowerCase().includes(q)));document.getElementById('countryGrid').innerHTML=arr.map(([k,c])=>`<article class="country-card" onclick="openCountry('${k}')"><button class="favstar ${fa.includes(k)?'on':''}" onclick="toggleFav('${k}',event)">★</button><div class="flagemoji">${c.flag}</div><h2>${c.name}</h2><p>${c.en}</p><p>수도 · ${c.capital}</p><span class="tag">${c.continent}</span></article>`).join('')||'<p>조건에 맞는 나라가 없습니다.</p>'}
 function filterCont(x){filter=x;renderHome()}document.getElementById('search').oninput=renderHome;
 const KR_DETAIL={intro:`<p>대한민국은 동아시아의 한반도 남쪽에 자리한 나라입니다. 동쪽·남쪽·서쪽은 바다와 맞닿아 있고 북쪽으로는 북한과 접합니다. 국토에는 산지가 많으며, 서쪽과 남쪽에는 평야와 넓은 해안이 발달해 있습니다.</p><p>대한민국의 면적은 약 100,459㎢이며, 인구는 국가통계의 기준에 따라 달라집니다. KOSIS는 2025년 추계인구를 51,684,564명으로 제시하고 있습니다.</p><p class="note">※ 인구는 2025년 추계인구를 사용했고, 면적은 대한민국 정부가 안내하는 2025년 기준 약 100,459㎢를 사용했습니다.</p>`,capital:`<p>서울은 대한민국의 수도이며 정치·경제·문화·교육의 중심지 가운데 하나입니다. 한강이 도시를 가로지르고 있으며, 북쪽에는 북한산을 비롯한 산지가 있습니다.</p><p>서울에는 조선 시대의 궁궐과 성곽, 종묘 같은 역사 유산과 현대적인 고층 건물, 지하철과 같은 도시 기반시설이 함께 있습니다. 경복궁·창덕궁·남산·한강 등은 서울의 역사와 현재 모습을 살펴볼 수 있는 대표적인 장소입니다.</p><p>서울은 조선이 한양을 수도로 정한 뒤 오랜 기간 우리나라의 중심 도시 역할을 해 왔습니다.</p>`,nature:`<h3>산과 강</h3><p>대한민국은 산지가 많은 나라입니다. 태백산맥과 소백산맥 등 여러 산지가 이어지며, 높은 산과 낮은 구릉이 함께 나타납니다. 한강·낙동강·금강·영산강 등 큰 강은 여러 지역의 생활과 농업에 중요한 역할을 합니다.</p><h3>바다와 섬</h3><p>대한민국은 동해·서해·남해에 둘러싸여 있습니다. 서해와 남해에는 섬이 많고 갯벌도 발달했습니다. 해안의 모습은 지역에 따라 모래사장, 갯벌, 암석 해안 등 다양합니다.</p><h3>기후</h3><p>사계절의 변화가 비교적 뚜렷합니다. 봄과 가을은 비교적 온화하고, 여름에는 덥고 습하며 비가 집중되는 시기가 있습니다. 겨울에는 차고 건조한 날씨가 나타납니다. 남쪽으로 갈수록 겨울이 비교적 온화하고, 산에서는 높이에 따라 기온 차이가 커집니다.</p><h3>제주의 자연</h3><p>제주도는 화산 활동으로 만들어진 섬입니다. 한라산과 오름, 용암 동굴 등 독특한 화산 지형이 발달했으며, 제주 화산섬과 용암 동굴은 유네스코 세계자연유산으로 등재되어 있습니다.</p>`,lang:`<p>대한민국에서 주로 사용하는 언어는 <strong>한국어</strong>이고, 한국어를 적는 데 널리 사용하는 문자는 <strong>한글</strong>입니다.</p><p>한글은 자음과 모음을 조합하여 글자를 만드는 체계를 가지고 있습니다. 세종대왕이 중심이 되어 만들어졌으며, 1443년에 창제되고 1446년에 『훈민정음』이라는 이름으로 반포되었습니다.</p><p>한글은 소리의 구조를 비교적 체계적으로 나타낼 수 있어, 우리말의 발음을 글자로 표현하기에 편리한 문자입니다.</p>`};
 function richText(c,kind){if(kind==='intro')return `<p>${c.name}은(는) ${c.continent}에 있는 나라입니다. 수도는 ${c.capital}이며, ${c.symbol} 같은 모습으로도 잘 알려져 있습니다.</p><p>국토의 면적은 약 ${c.area.toLocaleString()}㎢이고 인구는 약 ${fmtPop(c.pop)}입니다. ${c.neighbors}와(과) 지리적으로 이어지거나 가까우며, ${c.seas}의 영향을 받는 지역이 있습니다.</p><p>이 나라를 이해하려면 국기뿐 아니라 자연환경, 언어, 음식, 동식물, 명소, 생활문화와 역사를 함께 살펴보는 것이 좋습니다.</p>`;if(kind==='capital')return `<p>${c.capitaldesc}</p><p>${c.capital}은(는) ${c.name}의 정치와 행정에서 중요한 역할을 하는 도시이며, 나라의 역사와 현대 생활을 함께 살펴볼 수 있는 곳입니다.</p>`;if(kind==='nature')return `<h3>땅의 모습</h3><p>${c.nature}</p><h3>바다와 주변 지역</h3><p>${c.seas}와(과) 관련된 자연환경이 있으며, ${c.neighbors}와(과)의 위치 관계도 이 나라의 생활과 교류에 영향을 줍니다.</p><h3>자연을 살펴보는 방법</h3><p>아래의 동식물과 명소 사진을 함께 보면 기후와 지형에 따라 어떤 생물이 살고 사람들이 어떤 환경에서 생활하는지 더 쉽게 이해할 수 있습니다.</p>`;return `<p>${c.langdesc}</p><p>간단한 인사말과 감사 표현을 직접 읽어 보면서 글자의 모양과 소리를 비교해 보세요. 같은 뜻이라도 나라에 따라 문자와 발음이 크게 다를 수 있습니다.</p>`;}
@@ -834,18 +834,7 @@ const CANDIDATES={
   singers:['엘비스 프레슬리','마이클 잭슨','휘트니 휴스턴','비욘세','테일러 스위프트','스티비 원더','아레사 프랭클린','빌리 홀리데이'],
   athletes:['마이클 조던','세리나 윌리엄스','시몬 바일스','무하마드 알리','마이클 펠프스','재키 로빈슨','톰 브래디','칼 루이스'],
   people:['조지 워싱턴','에이브러햄 링컨','마틴 루서 킹 주니어','해리엇 터브먼','토머스 에디슨','아멜리아 에어하트','닐 암스트롱','마야 안젤루'],
-  art:['별이 빛나는 깃발','아메리칸 고딕','캠벨 수프 캔','앵무새 죽이기','호밀밭의 파수꾼','시민 케인','웨스트 사이드 스토리','위대한 개츠비']},
- FR:{
-  food:['바게트','크루아상','라타투이','부야베스','코코뱅','뵈프 부르기뇽','키슈 로렌','크레프','마카롱','에스카르고','크렘 브륄레','카술레'],
-  fruit:['🍇 과일','프랑스는 지역마다 기후와 농업 전통이 달라 포도, 사과, 배, 자두, 복숭아, 살구, 체리, 딸기와 여러 베리류가 재배됩니다. 특히 포도와 사과는 지역의 식문화와도 깊이 연결되어 있습니다.','포도 · 사과 · 배 · 미라벨 자두 · 렌클로드 자두 · 복숭아 · 살구 · 체리 · 딸기 · 라즈베리 · 블랙커런트 · 무화과 · 멜론 · 클레멘타인'],
-  animals:['알파인아이벡스','붉은사슴','유럽들소','플라밍고','마멋','유럽오소리','라벤더','올리브나무','포도나무','참나무','해바라기','프랑스해안소나무'],
-  places:['에펠탑','루브르 박물관','베르사유 궁전','몽생미셸','노트르담 대성당','개선문','샹보르성','카르카손','퐁뒤가르','샤모니 몽블랑'],
-  culture:['프랑스 카페 문화','바스티유 데이','칸 영화제','오트 쿠튀르','프랑스 요리문화','투르 드 프랑스','크리스마스 마켓','페탕크'],
-  singers:['에디트 피아프','샤를 아즈나부르','세르주 갱스부르','조니 알리데','밀렌 파르메르','다프트 펑크','자즈','미레유 마티외'],
-  athletes:['지네딘 지단','킬리안 음바페','테디 리네르','마리조제 페레크','토니 파커','마르탱 푸르카드','레옹 마르샹'],
-  people:['잔 다르크','루이 14세','나폴레옹 보나파르트','빅토르 위고','루이 파스퇴르','마리 퀴리','샤를 드골','시몬 베유'],
-  art:['인상, 해돋이','수련','생각하는 사람','어린 왕자','민중을 이끄는 자유의 여신','풀밭 위의 점심','물랭 드 라 갈레트의 무도회','볼레로']
- }
+  art:['별이 빛나는 깃발','아메리칸 고딕','캠벨 수프 캔','앵무새 죽이기','호밀밭의 파수꾼','시민 케인','웨스트 사이드 스토리','위대한 개츠비']}
 };
 const SECTION_LABEL={food:'음식',animals:'동식물',fruit:'과일',places:'명소',culture:'문화',singers:'가수',athletes:'운동선수',people:'역사인물',art:'예술작품'};
 function candidateKey(s){return `trial_candidates_used_${COUNTRY}_${s}`}
@@ -1411,19 +1400,8 @@ US:{
  singers:['🎤 가수와 음악인','미국은 재즈, 블루스, 컨트리, 록앤롤, 힙합, 팝 등 여러 대중음악 장르의 발전과 깊이 연결되어 있습니다. 서로 다른 시대와 공동체에서 활동한 음악인들이 새로운 소리와 공연문화를 만들었고 세계 대중음악에도 큰 영향을 주었습니다.','루이 암스트롱 · 엘비스 프레슬리 · 마이클 잭슨 · 마돈나 · 휘트니 휴스턴 · 비욘세 · 테일러 스위프트'],
  athletes:['🏀 운동선수','미국에서는 미식축구, 야구, 농구, 아이스하키가 대표적인 프로스포츠로 자리 잡았으며 육상, 수영, 테니스, 체조 등에서도 많은 선수가 국제무대에서 활약했습니다. 여러 종목의 대표 선수를 함께 보면 미국 스포츠 문화의 폭을 알 수 있습니다.','마이클 조던 — 농구 · 르브론 제임스 — 농구 · 베이브 루스 — 야구 · 세리나 윌리엄스 — 테니스 · 마이클 펠프스 — 수영 · 시몬 바일스 — 체조'],
  people:['📜 역사인물','미국의 역사는 독립과 헌법 제정, 영토의 확대, 남북전쟁, 산업화와 시민권 확대 등 여러 변화의 과정을 거쳤습니다. 정치 지도자와 시민운동가, 발명가 등 다양한 인물을 통해 미국 사회가 어떤 갈등과 변화를 거쳐 오늘날에 이르렀는지 살펴볼 수 있습니다.','조지 워싱턴 · 벤저민 프랭클린 · 에이브러햄 링컨 · 해리엇 터브먼 · 토머스 에디슨 · 마틴 루터 킹 주니어 · 로자 파크스'],
- art:['🎨 예술작품','미국 미술은 식민지 시대의 초상화와 풍경화에서 사실주의, 추상표현주의, 팝아트와 현대미술까지 다양한 흐름을 보여 줍니다. 도시와 농촌의 생활, 개인의 감정, 대중소비문화 등 미국 사회의 여러 모습이 작품 속에 표현되어 왔습니다.','《아메리칸 고딕》 · 《밤을 지새우는 사람들》 · 《크리스티나의 세계》 · 《캠벨 수프 캔》 · 《넘버 1A, 1948》'],
-FR:{
- fruit:['🍇 과일','프랑스는 대서양과 지중해, 내륙의 서로 다른 기후와 농업 전통 덕분에 지역마다 다양한 과일을 재배합니다. 보르도·부르고뉴·샹파뉴 등에서는 포도가 중요하고, 남부와 코르시카에서는 감귤류와 무화과가 자랍니다. 노르망디와 브르타뉴의 사과, 로렌의 미라벨 자두처럼 지역 이름과 함께 기억할 만한 과일도 많습니다.','포도 · 사과 · 배 · 미라벨 자두 · 렌클로드 자두 · 복숭아 · 살구 · 체리 · 딸기 · 라즈베리 · 블랙커런트 · 무화과 · 멜론 · 클레멘타인'],
- food:['🥖 음식과 식생활','프랑스 음식은 지역의 농산물과 치즈, 빵, 육류, 해산물을 다양하게 이용하며 재료와 조리법을 중요하게 여깁니다. 바게트와 크루아상 같은 빵부터 라타투이, 부야베스, 코코뱅처럼 지역색이 뚜렷한 음식까지 폭이 넓습니다. 식사를 천천히 즐기고 여러 코스로 나누어 먹는 전통도 프랑스 식문화를 이해하는 데 도움이 됩니다.','바게트 · 크루아상 · 라타투이 · 부야베스 · 코코뱅 · 뵈프 부르기뇽 · 키슈 로렌 · 크레프 · 마카롱 · 에스카르고 · 크렘 브륄레 · 카술레'],
- animals:['🦌🌿 동물과 식물','프랑스는 알프스와 피레네의 높은 산, 대서양과 지중해 해안, 넓은 숲과 농촌을 함께 가지고 있어 다양한 동식물이 살아갑니다. 산악지대에서는 아이벡스와 마멋을 볼 수 있고, 남부에는 라벤더와 올리브나무가 익숙합니다. 포도나무와 참나무도 프랑스의 자연과 농업에 깊이 연결되어 있습니다.','동물 — 알파인아이벡스 · 붉은사슴 · 유럽들소 · 플라밍고 · 마멋 · 유럽오소리 / 식물 — 라벤더 · 올리브나무 · 포도나무 · 참나무 · 해바라기 · 프랑스해안소나무'],
- places:['🗼 전국의 명소','프랑스의 명소에는 파리의 역사적인 건축과 미술관, 왕실의 흔적, 중세 도시와 성당, 알프스와 지중해의 자연경관이 함께 있습니다. 에펠탑과 루브르 박물관뿐 아니라 베르사유 궁전, 몽생미셸, 카르카손 같은 장소를 통해 서로 다른 시대와 지역의 모습을 살펴볼 수 있습니다.','에펠탑 · 루브르 박물관 · 베르사유 궁전 · 몽생미셸 · 노트르담 대성당 · 개선문 · 샹보르성 · 카르카손 · 퐁뒤가르 · 샤모니 몽블랑'],
- culture:['🎭 대표 문화','프랑스 문화는 문학과 미술, 패션, 요리, 영화와 공연예술 등 여러 분야에서 발전해 왔습니다. 카페 문화와 지역 시장, 7월 14일 혁명기념일, 칸 영화제처럼 생활과 축제가 이어지는 모습도 볼 수 있습니다. 지역마다 언어와 음식, 축제의 전통이 달라 프랑스 문화는 한 가지 모습으로만 설명하기 어렵습니다.','프랑스 카페 문화 · 바스티유 데이 · 칸 영화제 · 오트 쿠튀르 · 프랑스 요리문화 · 투르 드 프랑스 · 크리스마스 마켓 · 페탕크'],
- singers:['🎤 가수와 음악인','프랑스 대중음악에는 샹송의 전통부터 팝, 록, 전자음악까지 다양한 흐름이 있습니다. 서로 다른 시대의 가수와 음악인을 함께 살펴보면 프랑스어 노래와 현대 대중음악의 변화를 이해하는 데 도움이 됩니다.','에디트 피아프 · 샤를 아즈나부르 · 세르주 갱스부르 · 조니 알리데 · 밀렌 파르메르 · 다프트 펑크 · 자즈 · 미레유 마티외'],
- athletes:['⚽ 운동선수','프랑스에서는 축구와 럭비, 유도, 사이클, 테니스, 농구, 수영 등 여러 스포츠가 인기가 있습니다. 국제대회와 프로무대에서 활약한 선수들을 함께 살펴보면 프랑스 스포츠의 폭을 알 수 있습니다.','지네딘 지단 · 킬리안 음바페 · 테디 리네르 · 마리조제 페레크 · 토니 파커 · 마르탱 푸르카드 · 레옹 마르샹'],
- people:['📜 역사인물','프랑스의 역사는 왕정과 혁명, 제정과 공화정을 거치며 크게 변화했습니다. 잔 다르크와 루이 14세, 나폴레옹 같은 인물뿐 아니라 문학과 과학, 사회에 영향을 준 인물들을 통해 프랑스의 변화를 살펴볼 수 있습니다.','잔 다르크 · 루이 14세 · 나폴레옹 보나파르트 · 빅토르 위고 · 루이 파스퇴르 · 마리 퀴리 · 샤를 드골 · 시몬 베유'],
- art:['🎨 예술작품','프랑스는 오랫동안 유럽 예술의 중요한 중심지였으며 회화, 조각, 문학과 공연예술에서 세계적으로 알려진 작품이 많이 탄생하거나 프랑스와 깊이 연결되어 있습니다. 작품의 이름과 작가, 시대를 함께 살펴보면 고전주의에서 인상주의와 현대예술로 이어지는 흐름을 이해할 수 있습니다.','《인상, 해돋이》 · 《수련》 · 《생각하는 사람》 · 《어린 왕자》 · 《민중을 이끄는 자유의 여신》 · 《풀밭 위의 점심》 · 《물랭 드 라 갈레트의 무도회》 · 《볼레로》']
-}
-};
+ art:['🎨 예술작품','미국 미술은 식민지 시대의 초상화와 풍경화에서 사실주의, 추상표현주의, 팝아트와 현대미술까지 다양한 흐름을 보여 줍니다. 도시와 농촌의 생활, 개인의 감정, 대중소비문화 등 미국 사회의 여러 모습이 작품 속에 표현되어 왔습니다.','《아메리칸 고딕》 · 《밤을 지새우는 사람들》 · 《크리스티나의 세계》 · 《캠벨 수프 캔》 · 《넘버 1A, 1948》']
+}};
 
 // === FRUIT CATEGORY V1 ===
 // 과일나무를 억지로 카드 검색하지 않고, 아이에게 익숙한 열매를 별도 과일 카테고리에서 다룹니다.
@@ -1504,7 +1482,7 @@ window.classifyRepresentativeNames=classifyRepresentativeNames;
 
 
 // === FRUIT OVERVIEW NATIVE DISPLAY V4 ===
-const FRUIT_OVERVIEW_V4={ES:{intro:'스페인은 햇빛이 풍부하고 따뜻한 지역이 많아 과일 재배가 활발합니다. 지중해 연안에서는 오렌지와 레몬 같은 감귤류가 많이 자라고, 포도는 오랜 농업과 식문화에서 중요한 과일입니다. 무화과와 복숭아도 여러 지역에서 재배됩니다. 과일을 살펴보면 스페인의 따뜻한 기후와 지역별 농업의 특징을 함께 이해할 수 있습니다.',names:'오렌지 · 만다린 · 레몬 · 포도 · 복숭아 · 살구 · 자두 · 체리 · 딸기 · 무화과 · 석류 · 감 · 사과 · 배 · 멜론 · 수박'},JP:{intro:'일본은 남북으로 길고 계절 변화가 뚜렷해 지역마다 다양한 과일이 자랍니다. 따뜻한 지역에서는 귤이 많이 재배되고, 서늘한 지역에서는 사과가 유명합니다. 감·포도·복숭아·배처럼 우리에게도 익숙한 과일이 많고 지역마다 특색 있는 품종이 발달했습니다.',names:'귤 · 사과 · 감 · 포도 · 복숭아 · 배 · 딸기 · 체리 · 멜론 · 수박 · 자두 · 살구 · 무화과 · 키위'},US:{intro:'미국은 국토가 넓고 기후가 다양해 여러 종류의 과일을 재배합니다. 지역에 따라 사과·오렌지·포도뿐 아니라 블루베리·크랜베리·딸기 같은 베리류도 많이 생산됩니다. 다양한 기후 덕분에 여러 과일의 주요 생산지를 한 나라 안에서 만날 수 있습니다.',names:'사과 · 오렌지 · 포도 · 블루베리 · 크랜베리 · 딸기 · 체리 · 복숭아 · 배 · 자두 · 수박 · 멜론 · 라즈베리 · 자몽 · 레몬'}};
+const FRUIT_OVERVIEW_V4={ES:{intro:'스페인은 햇빛이 풍부하고 따뜻한 지역이 많아 과일 재배가 활발합니다. 지중해 연안에서는 오렌지와 레몬 같은 감귤류가 많이 자라고, 포도는 오랜 농업과 식문화에서 중요한 과일입니다. 무화과와 복숭아도 여러 지역에서 재배됩니다. 과일을 살펴보면 스페인의 따뜻한 기후와 지역별 농업의 특징을 함께 이해할 수 있습니다.',names:'오렌지 · 만다린 · 레몬 · 포도 · 복숭아 · 살구 · 자두 · 체리 · 딸기 · 무화과 · 석류 · 감 · 사과 · 배 · 멜론 · 수박'},JP:{intro:'일본은 남북으로 길고 계절 변화가 뚜렷해 지역마다 다양한 과일이 자랍니다. 따뜻한 지역에서는 귤이 많이 재배되고, 서늘한 지역에서는 사과가 유명합니다. 감·포도·복숭아·배처럼 우리에게도 익숙한 과일이 많고 지역마다 특색 있는 품종이 발달했습니다.',names:'귤 · 사과 · 감 · 포도 · 복숭아 · 배 · 딸기 · 체리 · 멜론 · 수박 · 자두 · 살구 · 무화과 · 키위'},US:{intro:'미국은 국토가 넓고 기후가 다양해 여러 종류의 과일을 재배합니다. 지역에 따라 사과·오렌지·포도뿐 아니라 블루베리·크랜베리·딸기 같은 베리류도 많이 생산됩니다. 다양한 기후 덕분에 여러 과일의 주요 생산지를 한 나라 안에서 만날 수 있습니다.',names:'사과 · 오렌지 · 포도 · 블루베리 · 크랜베리 · 딸기 · 체리 · 복숭아 · 배 · 자두 · 수박 · 멜론 · 라즈베리 · 자몽 · 레몬'},FR:{intro:'프랑스는 대서양 연안의 온화한 지역부터 남부의 따뜻한 지중해성 기후까지 지역별 기후가 다양해 여러 과일이 재배됩니다. 포도는 와인 문화와 함께 특히 잘 알려져 있고, 노르망디와 브르타뉴의 사과, 남부의 살구와 복숭아, 로렌의 미라벨 자두, 코르시카의 클레멘타인처럼 지역을 대표하는 과일도 많습니다.',names:'포도 · 사과 · 배 · 체리 · 복숭아 · 살구 · 미라벨 자두 · 렌클로드 자두 · 딸기 · 라즈베리 · 무화과 · 멜론 · 카비용 멜론 · 코르시카 클레멘타인 · 레몬'}};
 function renderFruitOverviewV4_DISABLED(){}
 
 
@@ -1751,7 +1729,7 @@ function ns177CleanCardKey(country,section,name){
  n=String(n||raw).trim().toLowerCase().replace(/\s+/g,' ');
  return [c,s,n].join('|');
 }
-const NS9015_VERSION='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+const NS9015_VERSION='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
 const NS9051_STATE_RULE='saved=green; verified-ready=purple; unverified=white; delete-card=>verified-ready';
 const ONE_TOPIC_ADAPTER={
  food:{kind:'food',ko:'음식'}, fruit:{kind:'fruit',ko:'과일'},
@@ -2215,7 +2193,7 @@ async function oneResolve(section,name,forcedKind=''){
  return {name:clean,title:finalName,resolvedName:finalName,entityId:best.p.pageprops?.wikibase_item||'',pageId:best.p.pageid||'',desc:cardDesc,photo,photos:photo?[photo]:[],sources:['NS90.39 검색 복구 기준 · NS90.33 검증 나라 연결 + NS90.30 풍부한 한국어 설명 + NS90.29 한국어 미리보기 보장 + NS90.28 한국어 설명 브리지 + NS90.27 안전 카드 품질 게이트 + NS90.26 다국어 동일대상 브리지'],score:bestScore,section,kind:topic.kind,qualityGate:{identity:true,type:true,description:true,photo:true,koreanPreview:true,countryContext:true,countryContextVerified}};
 }
 const ONE_CARD_ENGINE={
- version:'MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED',
+ version:'MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED',
  async resolve(input){return await oneResolve(input.section,input.name,input.kind||'')}
 };
 async function sharedResolve(name,type,section=''){return await ONE_CARD_ENGINE.resolve({section:section||type,name,kind:type})}
@@ -3063,7 +3041,7 @@ openCountry=function(code){
  return r;
 };
 
-window.__NS9021_ONE_ENGINE={version:'MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED',engine:ONE_CARD_ENGINE,rule:'country + section + name -> exactly one resolver'};
+window.__NS9021_ONE_ENGINE={version:'MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED',engine:ONE_CARD_ENGINE,rule:'country + section + name -> exactly one resolver'};
 window.__MAGIC_V7_DIAGNOSTIC={
  engine:'tested V3 core',
  lessonV23:'Fushimi/Yutoku: representative quality tie-break + exact selected-page photo binding',
@@ -3181,7 +3159,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 <!-- NS90.176: repair stale stableKey collisions by deriving identity from the card's current name. -->
 <script id="ns90167-card-identity-repair">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  function actualKey(country,section,x){
    const n=String(x?.name||x?.entityTitle||'').trim();
    try{return ns177CleanCardKey(country,section,n)}catch(_){return [String(country||COUNTRY||''),String(section||''),normalizeItemName(n)].join('|')}
@@ -3229,7 +3207,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
  }
  function syncVersion(){
    try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}
-   try{document.title='요술방망이 백과사전 · NS90.181'}catch(_){}
+   try{document.title='요술방망이 백과사전 · NS90.180'}catch(_){}
  }
  window.addEventListener('DOMContentLoaded',()=>{syncVersion();setTimeout(syncVersion,80);setTimeout(syncVersion,500);setTimeout(repair,700)});
  window.addEventListener('load',()=>{syncVersion();setTimeout(syncVersion,300)});
@@ -3239,7 +3217,7 @@ window.__MAGIC_V7_DIAGNOSTIC={
 </script>
 <script id="ns90170-record-store">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  const DB='magic_wand_cards_ns171', STORE='card_records', MEM=new Map(), READY=new Set();
  const secs=['food','animals','fruit','places','culture','singers','athletes','people','art'];
  const oldGet=getCustom, oldSet=setCustom;
@@ -3280,13 +3258,13 @@ window.__MAGIC_V7_DIAGNOSTIC={
   }catch(_){}
  }
  async function boot(){for(const c of ['ES','JP','US'])for(const s of secs)await migrate(c,s);await ns90180FreshJoshuaTest();try{if(!document.getElementById('detail').classList.contains('hidden'))for(const s of secs)await renderSection(s)}catch(_){} }
- function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.181'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+ function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.180'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
  boot().catch(e=>console.error('[NS90.176 boot]',e));sync();window.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,700);setInterval(sync,1500);
 })();
 </script>
 <script id="ns90171-nondestructive-save">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  // New rule: ordinary save/update may NEVER remove an existing card.
  // Only ns9096DeleteDurable is allowed to remove a card.
  function mergeKeepExisting(section,incoming){
@@ -3318,14 +3296,14 @@ window.__MAGIC_V7_DIAGNOSTIC={
  };
  function sync(){
    try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}
-   try{document.title='요술방망이 백과사전 · NS90.181'}catch(_){}
+   try{document.title='요술방망이 백과사전 · NS90.180'}catch(_){}
    try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}
  }
  sync(); document.addEventListener('DOMContentLoaded',sync); window.addEventListener('load',sync); setTimeout(sync,100); setTimeout(sync,700); setInterval(sync,1500);
 })();
 </script>
 <script id="ns90177-clean-engine">(()=>{
-const CLEAN_VERSION='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+const CLEAN_VERSION='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
 // ONE resolver only: the original common oneResolve-backed ONE_CARD_ENGINE from the base.
 // No resolver wrapping, no category-specific second engine, no retry wrapper.
 async function cleanResolve(section,name){
@@ -3359,7 +3337,7 @@ ns90106AppendCard=async function(section,item){
 };
 function cleanUI(){
  try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+CLEAN_VERSION}catch(_){}
- try{document.title='요술방망이 백과사전 · NS90.181 FRANCE CLEAN TEST'}catch(_){}
+ try{document.title='요술방망이 백과사전 · NS90.180 CLEAN MASTER'}catch(_){}
  ['ns90158DiagBtn','ns90158Diag','ns90177Tools','ns90177Diag'].forEach(id=>{try{document.getElementById(id)?.remove()}catch(_){}});
  // Old diagnostic/test floating controls are intentionally absent in CLEAN ENGINE.
  document.querySelectorAll('button').forEach(b=>{const t=(b.textContent||'').trim();if(t.includes('대표상태 진단')||t.includes('새 백과구조 시험')||t.includes('자동재검색 · 진단'))b.remove()});
@@ -3370,7 +3348,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.130: exact NS90.120 proven ONE MASTER baseline restore. No search/resolver logic added. -->
 <script>
 (()=>{
-  const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+  const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
   try{
     const b=document.getElementById('ns9015Banner');
     if(b) b.textContent='✅ '+V;
@@ -3383,7 +3361,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.134: version sync + Spain person-card tidy. Locked core/fallback logic unchanged. -->
 <script id="ns90134-version-sync-spain-card-tidy">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  const ES_ORDER={
   singers:['훌리오 이글레시아스','엔리케 이글레시아스','로살리아','알레한드로 산스','파코 데 루시아','플라시도 도밍고','몬세라트 카바예'],
   athletes:['라파엘 나달','카를로스 알카라스','안드레스 이니에스타','사비 에르난데스','이케르 카시야스','파우 가솔','페르난도 알론소'],
@@ -3417,7 +3395,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.135: country data cleanup only. Search engine is intentionally untouched. -->
 <script id="ns90135-country-data-cleanup-only">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  const DATA={
   ES:{
    singers:['훌리오 이글레시아스','엔리케 이글레시아스','로살리아','알레한드로 산스','파코 데 루시아','플라시도 도밍고','몬세라트 카바예'],
@@ -3471,7 +3449,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.137 final visible version sync; no search logic changes. -->
 <script id="ns90138-final-version-sync">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  function sync138(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
  sync138(); setTimeout(sync138,0); setTimeout(sync138,300); setTimeout(sync138,1500); setTimeout(sync138,3500);
 })();
@@ -3479,7 +3457,7 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 <!-- NS90.140: iOS Safari ↔ Home Screen transfer bridge. Search engine untouched. -->
 <script id="ns90140-ios-transfer-bridge">
 (()=>{
- const V='MASTER V28 · NS90.181 FRANCE CLEAN TEST · NS90.180 ENGINE UNCHANGED';
+ const V='MASTER V28 · NS90.181 FRANCE ADDED · NS90.180 ENGINE UNCHANGED';
  const SKIP=new Set(['magic_ns90137_run_after_refresh']);
  function appKey(k){return k==='encyclopedia_title'||k==='country_favorites'||k.startsWith('magic_')||k.startsWith(DATA_NS)}
  function exportLocal(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i)||'';if(appKey(k)&&!SKIP.has(k))o[k]=localStorage.getItem(k)}return o}
