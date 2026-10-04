@@ -1,11 +1,11 @@
-# Magic Encyclopedia NS90.224 CLEAN START
+# 요술방망이 나라 백과사전 — MASTER V28 FINAL
 
-새 저장소용 전체 배포 파일입니다.
+최종 안정판: NS90.226 FINAL STABLE
 
-- index.html: NS90.224 CLEAN START
-- manifest.webmanifest
-- apple-touch-icon.png
-- icon-192.png
-- icon-512.png
+- 대표 이름 보드 + 2단계 검색 유지
+- 준비된 항목 즉시 미리보기 유지
+- 항목 추가 후보 검색 복원
+- 사용자가 추가한 항목은 카드 삭제 후에도 보드에 남고 준비 상태로 복귀
+- 기존 데이터/백업 구조 유지
 
-이번 판은 기존 검색/카드/두 단계 검색/사용자 추가 항목 보존 기능을 유지하면서 화면 버전 표기를 NS90.224로 통일했습니다.
+GitHub Pages에서는 이 폴더의 파일들을 저장소 루트에 그대로 올려 사용하세요.
