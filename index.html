@@ -3834,6 +3834,56 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 })();
 </script>
 
+
+
+<!-- NS90.224: description leftovers are NEW/UNSEARCHED items. A tap starts the normal card search immediately; no second user choice. -->
+<script id="ns90224-leftover-fresh-search-handoff">
+(()=>{
+ const V='MASTER V28 · NS90.224 LEFTOVER FRESH SEARCH';
+ function sync(){
+   try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}
+   try{document.title='요술방망이 백과사전 · NS90.224'}catch(_){}
+   try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}
+ }
+ function wire(panel,section){
+   if(!panel)return;
+   panel.querySelectorAll('.ns90222-choice').forEach(btn=>{
+     if(btn.dataset.ns224==='1')return;
+     btn.dataset.ns224='1';
+     btn.onclick=async()=>{
+       const name=String(btn.textContent||'').trim();
+       if(!name)return;
+       // A description-leftover candidate has never been through card search.
+       // Start at the same normal first-stage resolver used for a representative name.
+       // strong() itself expands to the add-item second search only if the normal search fails.
+       try{
+         const sh=panel.querySelector('.ns90213-host.search'); if(sh)sh.innerHTML='';
+         const dh=panel.querySelector('.ns90213-host.discover'); if(dh)dh.style.display='none';
+         const input=panel.querySelector('input'); if(input)input.value=name;
+         if(typeof strong==='function') await strong(section,name,panel,{});
+         else {
+           // Fallback: invoke the exact-name path without displaying candidate choices.
+           const pv=panel.querySelector('.ns90213-preview');
+           if(pv)pv.innerHTML='<div class="preview-card">🔎 <b>'+esc(name)+'</b>을 처음 단계부터 검색하고 있어요…</div>';
+           let v=null; try{v=await cleanResolve(section,name)}catch(_){}
+           if(v?.desc){try{ns9053SaveReady(v12Request(section,name),v)}catch(_){}; if(pv)pv.innerHTML='<div class="preview-card"><h3>'+esc(name)+'</h3><p>'+esc(v.desc)+'</p>'+(v.photo?'<div class="v3-photo-choices"><img src="'+esc(v.photo)+'" alt=""></div>':'')+'<p class="ns90213-note">정상 1차 검색에서 찾았습니다.</p></div>'}
+           else if(pv)pv.innerHTML='<div class="preview-card"><h3>'+esc(name)+'</h3><p>정상 1차 검색에서 확정하지 못했습니다. 항목추가 2차 검색 경로를 확인해 주세요.</p></div>';
+         }
+       }catch(e){console.error('[224 fresh handoff]',e)}
+     };
+   });
+ }
+ const prev=window.addItem;
+ window.addItem=function(section,prefill=''){
+   const r=prev(section,prefill);
+   const sec=document.getElementById(section+'List')?.parentElement;
+   const apply=()=>{const panel=[...(sec?.querySelectorAll('.ns90213-panel,.ns90206-add-panel')||[])].pop();wire(panel,section)};
+   apply();setTimeout(apply,0);setTimeout(apply,80);return r;
+ };
+ sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,800);setInterval(sync,1700);
+})();
+</script>
+
 </body></html>
 <!-- NS90.130: exact NS90.120 proven ONE MASTER baseline restore. No search/resolver logic added. -->
 <script>
