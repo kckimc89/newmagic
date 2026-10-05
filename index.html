@@ -3787,6 +3787,53 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
 })();
 </script>
 
+
+<style id="ns90221-description-leftovers-only-style">
+.ns90221-note{font-size:.88rem;color:#68758a;margin-top:7px}
+</style>
+<script id="ns90221-description-leftovers-only">
+(()=>{
+ const V='MASTER V28 · NS90.221 DESCRIPTION LEFTOVERS ONLY';
+ const norm=x=>{try{return normalizeItemName(String(x||''))}catch(_){return String(x||'').trim().toLowerCase()}};
+ const esc2=x=>{try{return esc(String(x??''))}catch(_){return String(x??'').replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]))}};
+ function secNode(s){return document.getElementById(s+'List')?.parentElement||null}
+ function reps(s){const z=new Set();try{for(const n of parseRepNames(repTextFor(s),s))z.add(norm(n))}catch(_){}return z}
+ function known(s){const z=reps(s);try{for(const x of getCustom(s)||[])z.add(norm(x.name))}catch(_){}return z}
+ function leftovers(s){
+   const out=[],seen=new Set(),ks=known(s);
+   let src=[];try{src=(CANDIDATES?.[COUNTRY]?.[s]||[])}catch(_){}
+   for(const x of src){const n=String(x?.name||x||'').trim(),k=norm(n);if(!n||!k||ks.has(k)||seen.has(k))continue;seen.add(k);out.push({name:n,desc:String(x?.desc||x?.description||'')});if(out.length>=8)break}
+   return out;
+ }
+ function removePanels(s){const sec=secNode(s);if(sec)sec.querySelectorAll('.ns90206-add-panel,.candidate-box,.ns90213-panel,.ns90218-panel,.ns90221-panel').forEach(x=>x.remove())}
+ // Keep the established typed-search/card route. We only replace the idle recommendation area.
+ const typedAdd=window.addItem;
+ window.addItem=function(section,prefill=''){
+   removePanels(section);
+   typedAdd(section,prefill);
+   const sec=secNode(section);if(!sec)return;
+   const panel=sec.querySelector('.ns90213-panel,.ns90206-add-panel');if(!panel)return;
+   panel.classList.add('ns90221-panel');
+   const host=panel.querySelector('.discover,.recommend-host');if(!host)return;
+   const draw=()=>{
+     const a=leftovers(section);
+     host.style.display='';
+     host.innerHTML='<div class="title">✨ 새로운 항목 추천</div><div class="sub">설명문을 만들 때 이미 모아 둔 이름 중 대표 이름에 쓰지 않은 것만 보여드립니다. 새 추천 검색은 하지 않습니다.</div><div class="ns90213-choices"></div>';
+     const box=host.querySelector('.ns90213-choices');
+     if(!a.length){box.innerHTML='<span class="ns90221-note">설명문 작업에서 남은 후보가 없습니다. 필요한 이름이 있으면 직접 입력해 주세요.</span>';return}
+     for(const x of a){const b=document.createElement('button');b.type='button';b.className='ns90213-choice';b.innerHTML='<b>'+esc2(x.name)+'</b>';b.addEventListener('click',()=>{const inp=panel.querySelector('input');if(!inp)return;inp.value=x.name;inp.dispatchEvent(new Event('input',{bubbles:true}));});box.appendChild(b)}
+   };
+   draw();
+   // Older async discovery code can repaint this area after opening. Restore leftovers once, without searching.
+   setTimeout(()=>{if(panel.isConnected)draw()},180);
+   setTimeout(()=>{if(panel.isConnected && !panel.querySelector('.ns90213-choices'))draw()},650);
+   return panel;
+ };
+ function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.221'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+ sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',sync);setTimeout(sync,80);setTimeout(sync,700);setInterval(sync,1700);
+})();
+</script>
+
 </body></html>
 <!-- NS90.130: exact NS90.120 proven ONE MASTER baseline restore. No search/resolver logic added. -->
 <script>
