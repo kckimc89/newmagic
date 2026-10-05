@@ -3434,6 +3434,60 @@ cleanUI();addEventListener('DOMContentLoaded',cleanUI);addEventListener('load',c
  sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,700);setInterval(sync,1600);
 })();
 </script>
+
+<script id="ns90193-france-search-boost">
+// === NS90.193 FRANCE SEARCH BOOST ===
+// Search-only enhancement. NS90.192 card/delete/state behavior is intentionally untouched.
+(()=>{
+ const V='MASTER V28 · NS90.193 FRANCE SEARCH BOOST · NS90.192 STATE LOCKED';
+ const A={
+ '라타투이':['Ratatouille'], '부야베스':['Bouillabaisse'], '코코뱅':['Coq au vin'],
+ '뵈프 부르기뇽':['Boeuf bourguignon','Beef bourguignon'], '키슈 로렌':['Quiche Lorraine'],
+ '크레프':['Crêpe','Crepe'], '마카롱':['Macaron'], '에스카르고':['Escargot'],
+ '크렘 브륄레':['Crème brûlée','Creme brulee'], '카술레':['Cassoulet'],
+ '미라벨 자두':['Mirabelle plum','Mirabelle'], '렌클로드 자두':['Greengage','Reine Claude'],
+ '카비용 멜론':['Cavaillon melon','Melon de Cavaillon'], '코르시카 클레멘타인':['Corsican clementine','Clémentine de Corse'],
+ '알파인아이벡스':['Alpine ibex','Capra ibex'], '샤무아':['Chamois','Rupicapra rupicapra'],
+ '큰홍학':['Greater flamingo','Phoenicopterus roseus'], '라벤더':['Lavender','Lavandula'],
+ '포도나무':['Grapevine','Vitis vinifera'], '올리브나무':['Olive tree','Olea europaea'],
+ '에펠탑':['Eiffel Tower'], '루브르 박물관':['Louvre Museum','Louvre'], '베르사유 궁전':['Palace of Versailles','Versailles'],
+ '몽생미셸':['Mont-Saint-Michel'], '개선문':['Arc de Triomphe'], '노트르담 대성당':['Notre-Dame de Paris'],
+ '샹보르성':['Château de Chambord','Chambord Castle'], '퐁뒤가르':['Pont du Gard'], '몽블랑':['Mont Blanc'],
+ '프랑스 혁명 기념일':['Bastille Day','Fête nationale française'], '칸 영화제':['Cannes Film Festival'],
+ '투르 드 프랑스':['Tour de France'], '에디트 피아프':['Édith Piaf','Edith Piaf'],
+ '샤를 아즈나부르':['Charles Aznavour'], '프랑수아즈 아르디':['Françoise Hardy','Francoise Hardy'],
+ '조니 알리데':['Johnny Hallyday'], '미레유 마티외':['Mireille Mathieu'], '다프트 펑크':['Daft Punk'], '자즈':['Zaz'],
+ '지네딘 지단':['Zinedine Zidane','Zinédine Zidane'], '킬리안 음바페':['Kylian Mbappé','Kylian Mbappe'],
+ '테디 리네르':['Teddy Riner'], '마리조제 페레크':['Marie-José Pérec','Marie-Jose Perec'], '토니 파커':['Tony Parker'],
+ '마르탱 푸르카드':['Martin Fourcade'], '레옹 마르샹':['Léon Marchand','Leon Marchand'],
+ '잔 다르크':['Joan of Arc','Jeanne d’Arc','Jeanne d Arc'], '루이 14세':['Louis XIV'],
+ '나폴레옹 보나파르트':['Napoleon Bonaparte','Napoléon Bonaparte'], '빅토르 위고':['Victor Hugo'],
+ '루이 파스퇴르':['Louis Pasteur'], '마리 퀴리':['Marie Curie'], '샤를 드골':['Charles de Gaulle'], '시몬 베유':['Simone Veil'],
+ '민중을 이끄는 자유의 여신':['Liberty Leading the People','La Liberté guidant le peuple'],
+ '인상, 해돋이':['Impression, Sunrise','Impression, soleil levant'], '수련':['Water Lilies','Nymphéas'],
+ '생라자르역':['The Gare Saint-Lazare','Gare Saint-Lazare'], '생각하는 사람':['The Thinker','Le Penseur'],
+ '칼레의 시민':['The Burghers of Calais','Les Bourgeois de Calais'], '어린 왕자':['The Little Prince','Le Petit Prince']
+ };
+ try{for(const [k,v] of Object.entries(A)){V3_ALIAS[k]=[...new Set([...(V3_ALIAS[k]||[]),...v])];}}catch(e){console.warn('[NS90.193 aliases]',e)}
+ // France second pass: search Wikidata with the same canonical aliases used by the common engine.
+ const baseSecond=ns9069WikidataHits;
+ ns9069WikidataHits=async function(name,section){
+   if(String(COUNTRY)!=='FR')return baseSecond(name,section);
+   const seeds=[name,...(A[name]||[])];
+   try{if(typeof V3_aliases==='function')seeds.push(...V3_aliases(name));}catch(_){}
+   const all=[],seen=new Set();
+   for(const seed of [...new Set(seeds.filter(Boolean))].slice(0,7)){
+     let rows=[]; try{rows=await baseSecond(seed,section)}catch(_){}
+     for(const h of rows||[]){const key=String(h.wikibaseId||h.title||'');if(key&&!seen.has(key)){seen.add(key);all.push(h)}}
+     if(all.length>=10)break;
+   }
+   return all.slice(0,10);
+ };
+ function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){};try{document.title='요술방망이 백과사전 · NS90.193'}catch(_){};try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+ sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',sync);setTimeout(sync,300);setTimeout(sync,1500);
+})();
+</script>
+
 </body></html>
 <!-- NS90.130: exact NS90.120 proven ONE MASTER baseline restore. No search/resolver logic added. -->
 <script>
