@@ -4139,3 +4139,37 @@ more.FR={
  sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,700);setInterval(sync,1600);
 })();
 </script>
+
+<style id="ns90206-candidate-module-style">
+.candidate-box{display:block!important;margin-top:14px!important}
+.ns90206-add-panel{margin:12px 0;padding:13px;border:1px solid #cbd5e1;border-radius:14px;background:#fff}
+.ns90206-add-panel .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ns90206-add-panel input{flex:1;min-width:210px;font-size:16px;padding:10px 11px;border:1px solid #b8c4d4;border-radius:10px}
+.ns90206-add-panel button{min-height:42px;border:1px solid #b8c4d4;background:#fff;border-radius:10px;padding:8px 12px;font-weight:800}
+.ns90206-add-panel .hint{font-size:.88rem;color:#68758a;margin:0 0 9px}
+</style>
+<script id="ns90206-candidate-recommendation-revival">
+(()=>{
+ const V='MASTER V28 · NS90.206 CANDIDATE RECOMMENDATION REVIVAL';
+ const originalAdd=window.addItem;
+ function sectionNode(s){return document.getElementById(s+'List')?.parentElement||null}
+ function removePanel(s){const sec=sectionNode(s);if(sec)sec.querySelectorAll('.ns90206-add-panel,.candidate-box').forEach(x=>x.remove())}
+ window.addItem=async function(s,prefill=''){
+   const sec=sectionNode(s);if(!sec)return originalAdd?originalAdd(s,prefill):undefined;
+   removePanel(s);
+   const panel=document.createElement('div');panel.className='ns90206-add-panel';
+   panel.innerHTML=`<p class="hint">✨ 이 나라와 현재 카테고리에 맞는 좋은 후보를 먼저 추천합니다. 직접 이름을 입력해도 같은 공통엔진으로 검색합니다.</p><div class="row"><input type="text" placeholder="직접 추가할 이름 (정확하지 않아도 됩니다)" value="${esc(prefill||'')}"><button type="button" class="direct">직접 검색</button><button type="button" class="close">닫기</button></div><div class="recommend-host"></div>`;
+   const addBtn=[...sec.querySelectorAll('.add-btn')].find(b=>String(b.getAttribute('onclick')||'').includes("addItem('"+s+"')"));
+   (addBtn||document.getElementById(s+'List')).insertAdjacentElement('afterend',panel);
+   const input=panel.querySelector('input');
+   const direct=async()=>{const n=input.value.trim();if(!n)return alert('추가할 이름을 입력해 주세요.');removePanel(s);return originalAdd?originalAdd(s,n):undefined};
+   panel.querySelector('.direct').onclick=direct;input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();direct()}});
+   panel.querySelector('.close').onclick=()=>removePanel(s);
+   // Reuse the original candidate discovery/verification module. It recommends only
+   // candidates that already passed the same entity + description + photo checks.
+   try{await renderCandidates(s,panel.querySelector('.recommend-host'))}catch(e){console.error(e);const h=panel.querySelector('.hint');if(h)h.textContent='추천 후보를 불러오지 못했습니다. 직접 이름을 입력해 검색할 수 있습니다.'}
+ };
+ function sync(){try{const b=document.getElementById('ns9015Banner');if(b)b.textContent='✅ '+V}catch(_){}try{document.title='요술방망이 백과사전 · NS90.206'}catch(_){}try{if(window.__NS9021_ONE_ENGINE)window.__NS9021_ONE_ENGINE.version=V}catch(_){}}
+ sync();addEventListener('DOMContentLoaded',sync);addEventListener('load',sync);setTimeout(sync,100);setTimeout(sync,700);setInterval(sync,1600);
+})();
+</script>
